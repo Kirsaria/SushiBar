@@ -8,6 +8,12 @@ public class HintTrigger : MonoBehaviour
     public Animator animator;
     public string nextSceneName;
     private bool playerInTrigger = false;
+    private NPCManager npcManager;
+
+    private void Start()
+    {
+        npcManager = FindObjectOfType<NPCManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,6 +37,17 @@ public class HintTrigger : MonoBehaviour
     {
         if (playerInTrigger && Input.GetKeyDown(KeyCode.E))
         {
+            // Сохранение списка взаимодействовавших NPC
+            if (npcManager != null)
+            {
+                npcManager.SaveInteractedNPCIDs();
+            }
+            else
+            {
+                Debug.LogError("NPCManager не найден!");
+            }
+
+            // Переход на другую сцену
             SceneManager.LoadScene(nextSceneName);
         }
     }

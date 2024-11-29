@@ -17,38 +17,66 @@ public class NPCInteraction : MonoBehaviour
     public bool IsSitting = false;
     private NPCManager npcManager;
     [SerializeField] private OrderData orderData;
+    private List<int> interactedNPCs;
 
-    public void AddInteractedNPC(int npcID, GameObject npc)
+    private void Awake()
+    {
+        interactedNPCs = new List<int>();
+        DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
+    }
+
+    private void Start()
     {
         npcManager = FindObjectOfType<NPCManager>();
-        if (!npcManager.npcDictionary.ContainsKey(npcID))
+    }
+
+    public void InteractWithNPC(int npcId)
+    {
+        if (!interactedNPCs.Contains(npcId))
         {
-            npcManager.npcDictionary.Add(npcID, npc);
+            interactedNPCs.Add(npcId);
+            Debug.Log($"NPC с ID {npcId} добавлен в список взаимодействий.");
             // Обновляем данные в OrderData
-            Orders newOrder = new Orders { npcID = npcID, HasTaken = true, ingredients = new List<Ingredient>() };
+            Orders newOrder = new Orders { npcID = npcId, HasTaken = true, ingredients = new List<Ingredient>() };
             orderData.orders.Add(newOrder);
+
+            // Добавляем NPC в список взаимодействий в NPCManager
+            if (npcManager != null)
+            {
+                npcManager.AddInteractedNPC(npcId);
+            }
+            else
+            {
+                Debug.LogError("NPCManager не найден!");
+            }
+        }
+        else
+        {
+            Debug.Log($"NPC с ID {npcId} уже существует в списке взаимодействий.");
         }
     }
 
+    public List<int> GetInteractedNPCs()
+    {
+        return interactedNPCs;
+    }
 
     void Update()
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
             DialogueUI dialogueUI = FindObjectOfType<DialogueUI>();
-            NPCManager npcManager = FindObjectOfType<NPCManager>();
-            OrderSceneManager orderSceneManager = FindObjectOfType<OrderSceneManager>();
             if (isDialogueActive)
             {
                 dialogueUI.EndDialogue();
-                isDialogueActive = false;              
+                isDialogueActive = false;
                 npcManager.SitOnChair(gameObject);
             }
             else
             {
                 dialogueUI.StartDialogue(dialogue);
                 isDialogueActive = true;
-                AddInteractedNPC(npcID, gameObject);
+                InteractWithNPC(npcID);
             }
         }
     }
@@ -78,6 +106,7 @@ public class NPCInteraction : MonoBehaviour
             }
         }
     }
+
     public void EnableInteraction(int index)
     {
         chairIndex = index;

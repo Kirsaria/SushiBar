@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Mono.Data.Sqlite;
+using System.Data;
 
 public class Dialogue
 {
@@ -23,37 +25,110 @@ public class Orders
 
 public class OrderManager : MonoBehaviour
 {
-    [SerializeField] private List<Ingredient> riceIngredients;
-    [SerializeField] private List<Ingredient> fishIngredients;
-    [SerializeField] private List<Ingredient> cheeseIngredients;
-    [SerializeField] private List<Ingredient> sousIngredients;
-    [SerializeField] public Orders[] orders;
+    private string dbPath;
     public List<Orders> availableOrders;
-    [SerializeField] private Dialogue[] dialogues;
+    private List<int> interactedNPCs; // Новый список для хранения NPC
+    public void SaveOrders()
+    {
+        // Логика сохранения заказов
+        Debug.Log("Заказы сохранены.");
+    }
     private void Start()
     {
-        Orders order1 = new Orders
-        {
-            ingredients = new List<Ingredient> { riceIngredients[0], fishIngredients[0], cheeseIngredients[0] }
-        };
+        dbPath = "URI=file:Orders.db";
+        LoadOrdersFromDatabase();
+        interactedNPCs = new List<int>(); // Инициализация списка
+    }
 
-        Orders order2 = new Orders
+    public void InteractWithNPC(int npcId)
+    {
+        if (!interactedNPCs.Contains(npcId))
         {
-            ingredients = new List<Ingredient> { riceIngredients[1], sousIngredients[0], cheeseIngredients[1] }
-        };
+            interactedNPCs.Add(npcId); // Добавляем NPC в список при взаимодействии
+        }
+    }
 
-        Orders order3 = new Orders
+    public List<Orders> GetOrdersForInteractedNPCs()
+    {
+        List<Orders> filteredOrders = new List<Orders>();
+
+        foreach (var order in availableOrders)
         {
-            ingredients = new List<Ingredient> { fishIngredients[1], riceIngredients[2], sousIngredients[1] }
-        };
+            if (interactedNPCs.Contains(order.npcID))
+            {
+                filteredOrders.Add(order);
+            }
+        }
 
-        Orders order4 = new Orders
+        return filteredOrders;
+    }
+
+    private void LoadOrdersFromDatabase()
+    {
+        availableOrders = new List<Orders>();
+
+        using (var connection = new SqliteConnection(dbPath))
         {
-            ingredients = new List<Ingredient> { fishIngredients[2], riceIngredients[2], sousIngredients[1], cheeseIngredients[1] }
-        };
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    SELECT Orders.OrderID, Orders.NPCID, OrderItem.IngredientName, OrderItem.PrefabName
+                    FROM Orders
+                    JOIN OrderItem ON Orders.OrderID = OrderItem.OrderID
+                ";
 
-        orders = new Orders[] { order1, order2, order3, order4 };
-        availableOrders = new List<Orders>(orders);
+                using (var reader = command.ExecuteReader())
+                {
+                    Dictionary<int, Orders> ordersDict = new Dictionary<int, Orders>();
+
+                    while (reader.Read())
+                    {
+                        int orderId = reader.GetInt32(0);
+                        int npcId = reader.GetInt32(1);
+                        string ingredientName = reader.GetString(2);
+                        string prefabName = reader.GetString(3);
+
+                        if (!ordersDict.ContainsKey(orderId))
+                        {
+                            ordersDict[orderId] = new Orders
+                            {
+                                ingredients = new List<Ingredient>(),
+                                npcID = npcId
+                            };
+                        }
+
+                        // Загрузка префаба из папки Resources
+                        GameObject prefab = Resources.Load<GameObject>($"Prefabs/Ingridients Prefabs/{prefabName}");
+                        if (prefab != null)
+                        {
+                            ordersDict[orderId].ingredients.Add(new Ingredient
+                            {
+                                name = ingredientName,
+                                prefab = prefab
+                            });
+                        }
+                        else
+                        {
+                            Debug.LogError($"Prefab with name {prefabName} not found in Resources/Prefabs/Ingridients Prefabs folder!");
+                        }
+                    }
+
+                    availableOrders = new List<Orders>(ordersDict.Values);
+                }
+            }
+        }
+    }
+    public Orders GetOrderForNPC(int npcId)
+    {
+        foreach (var order in availableOrders)
+        {
+            if (order.npcID == npcId)
+            {
+                return order;
+            }
+        }
+        return null;
     }
 
     public Dialogue CreateOrderDialogue(Orders order)
