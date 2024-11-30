@@ -1,3 +1,4 @@
+using Mono.Data.Sqlite;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,6 @@ public class NPCInteraction : MonoBehaviour
 {
     public int npcID;
     public Animator animator;
-    private bool playerInTrigger = false;
     public Dialogue dialogue;
     public Animator animatorDialog;
     public Orders order;
@@ -36,8 +36,22 @@ public class NPCInteraction : MonoBehaviour
         {
             interactedNPCs.Add(npcId);
             Debug.Log($"NPC с ID {npcId} добавлен в список взаимодействий.");
+
+            // Обновляем статус заказа в базе данных
+            string conn = "URI=file:Orders.db";
+            using (var connection = new SqliteConnection(conn))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE Orders SET IsCompleted = 1 WHERE NPCID = @npcId";
+                    command.Parameters.Add(new SqliteParameter("@npcId", npcId));
+                    command.ExecuteNonQuery();
+                }
+            }
+
             // Обновляем данные в OrderData
-            Orders newOrder = new Orders { npcID = npcId, HasTaken = true, ingredients = new List<Ingredient>() };
+            Orders newOrder = new Orders { npcID = npcId, IsCompleted = true, ingredients = new List<Ingredient>() };
             orderData.orders.Add(newOrder);
 
             // Добавляем NPC в список взаимодействий в NPCManager
@@ -54,11 +68,6 @@ public class NPCInteraction : MonoBehaviour
         {
             Debug.Log($"NPC с ID {npcId} уже существует в списке взаимодействий.");
         }
-    }
-
-    public List<int> GetInteractedNPCs()
-    {
-        return interactedNPCs;
     }
 
     void Update()
@@ -86,7 +95,6 @@ public class NPCInteraction : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             animator.SetTrigger("IsTriggered");
-            playerInTrigger = true;
             isPlayerNearby = true;
         }
     }
@@ -96,7 +104,6 @@ public class NPCInteraction : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             animator.SetTrigger("IsTriggered");
-            playerInTrigger = false;
             isPlayerNearby = false;
             if (isDialogueActive)
             {

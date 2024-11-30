@@ -18,8 +18,10 @@ public class Ingredient
 [System.Serializable]
 public class Orders
 {
+    public int OrderID;
     public List<Ingredient> ingredients;
-    public bool HasTaken = false;
+    public bool IsCompleted = false;
+    public bool IsCookingCompleted = false;
     public int npcID;
 }
 
@@ -30,7 +32,6 @@ public class OrderManager : MonoBehaviour
     private List<int> interactedNPCs; // Новый список для хранения NPC
     public void SaveOrders()
     {
-        // Логика сохранения заказов
         Debug.Log("Заказы сохранены.");
     }
     private void Start()
@@ -38,29 +39,6 @@ public class OrderManager : MonoBehaviour
         dbPath = "URI=file:Orders.db";
         LoadOrdersFromDatabase();
         interactedNPCs = new List<int>(); // Инициализация списка
-    }
-
-    public void InteractWithNPC(int npcId)
-    {
-        if (!interactedNPCs.Contains(npcId))
-        {
-            interactedNPCs.Add(npcId); // Добавляем NPC в список при взаимодействии
-        }
-    }
-
-    public List<Orders> GetOrdersForInteractedNPCs()
-    {
-        List<Orders> filteredOrders = new List<Orders>();
-
-        foreach (var order in availableOrders)
-        {
-            if (interactedNPCs.Contains(order.npcID))
-            {
-                filteredOrders.Add(order);
-            }
-        }
-
-        return filteredOrders;
     }
 
     private void LoadOrdersFromDatabase()
@@ -73,10 +51,10 @@ public class OrderManager : MonoBehaviour
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = @"
-                    SELECT Orders.OrderID, Orders.NPCID, OrderItem.IngredientName, OrderItem.PrefabName
-                    FROM Orders
-                    JOIN OrderItem ON Orders.OrderID = OrderItem.OrderID
-                ";
+            SELECT Orders.OrderID, Orders.NPCID, OrderItem.IngredientName, OrderItem.PrefabName, Orders.IsCompleted, Orders.IsCookingCompleted
+            FROM Orders
+            JOIN OrderItem ON Orders.OrderID = OrderItem.OrderID
+        ";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -88,13 +66,18 @@ public class OrderManager : MonoBehaviour
                         int npcId = reader.GetInt32(1);
                         string ingredientName = reader.GetString(2);
                         string prefabName = reader.GetString(3);
+                        bool isCompleted = reader.GetInt32(4) == 1;
+                        bool isCookingCompleted = reader.GetInt32(5) == 1;
 
                         if (!ordersDict.ContainsKey(orderId))
                         {
                             ordersDict[orderId] = new Orders
                             {
-                                ingredients = new List<Ingredient>(),
-                                npcID = npcId
+                                OrderID = orderId,
+                                npcID = npcId,
+                                IsCompleted = isCompleted,
+                                IsCookingCompleted = isCookingCompleted,
+                                ingredients = new List<Ingredient>()
                             };
                         }
 
@@ -115,10 +98,13 @@ public class OrderManager : MonoBehaviour
                     }
 
                     availableOrders = new List<Orders>(ordersDict.Values);
+                    Debug.Log($"Загружено заказов: {availableOrders.Count}");
                 }
             }
         }
     }
+
+
     public Orders GetOrderForNPC(int npcId)
     {
         foreach (var order in availableOrders)
@@ -138,9 +124,10 @@ public class OrderManager : MonoBehaviour
 
         for (int i = 0; i < order.ingredients.Count; i++)
         {
-            sentences[i + 1] = $"- {order.ingredients[i].name}";
+            sentences[i + 1] = $"{order.ingredients[i].name}";
         }
 
         return new Dialogue { sentences = sentences };
     }
+
 }

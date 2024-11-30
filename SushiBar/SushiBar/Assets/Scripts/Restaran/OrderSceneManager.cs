@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mono.Data.Sqlite;
 using System.Data;
+using UnityEngine.SceneManagement;
 
 public class OrderSceneManager : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class OrderSceneManager : MonoBehaviour
     private string dbPath;
     private List<Orders> orders;
     private List<int> interactedNPCIDs;
+    private Dictionary<int, GameObject> orderObjects; // Словарь для хранения объектов заказов
 
     private void Start()
     {
         dbPath = "URI=file:Orders.db";
         LoadInteractedNPCIDs();
         LoadOrdersFromDatabase();
+        orderObjects = new Dictionary<int, GameObject>();
         DisplayOrders();
     }
 
@@ -50,10 +53,10 @@ public class OrderSceneManager : MonoBehaviour
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = @"
-                    SELECT Orders.OrderID, Orders.NPCID, OrderItem.IngredientName, OrderItem.PrefabName
-                    FROM Orders
-                    JOIN OrderItem ON Orders.OrderID = OrderItem.OrderID
-                ";
+            SELECT Orders.OrderID, Orders.NPCID, OrderItem.IngredientName, OrderItem.PrefabName, Orders.IsCompleted, Orders.IsCookingCompleted
+            FROM Orders
+            JOIN OrderItem ON Orders.OrderID = OrderItem.OrderID
+        ";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -65,14 +68,18 @@ public class OrderSceneManager : MonoBehaviour
                         int npcId = reader.GetInt32(1);
                         string ingredientName = reader.GetString(2);
                         string prefabName = reader.GetString(3);
+                        bool isCompleted = reader.GetInt32(4) == 1;
+                        bool isCookingCompleted = reader.GetInt32(5) == 1;
 
                         if (!ordersDict.ContainsKey(orderId))
                         {
                             ordersDict[orderId] = new Orders
                             {
-                                ingredients = new List<Ingredient>(),
+                                OrderID = orderId,
                                 npcID = npcId,
-                                HasTaken = true // Предположим, что все заказы взяты
+                                IsCompleted = isCompleted,
+                                IsCookingCompleted = isCookingCompleted,
+                                ingredients = new List<Ingredient>()
                             };
                         }
 
@@ -123,15 +130,14 @@ public class OrderSceneManager : MonoBehaviour
             while (orderIndex < orders.Count && !orderDisplayed)
             {
                 var order = orders[orderIndex];
-                Debug.Log($"Проверка заказа: {order.npcID}, HasTaken: {order.HasTaken}");
-                if (order.HasTaken && interactedNPCIDs.Contains(order.npcID))
+                Debug.Log($"Проверка заказа: {order.npcID}, IsCompleted: {order.IsCompleted}");
+                if (order.IsCompleted && interactedNPCIDs.Contains(order.npcID))
                 {
                     Debug.Log($"Заказ найден: {order.npcID}");
                     string orderText = GetIngridientsStr(order.ingredients);
                     Transform orderPoint = orderPoints[i];
                     GameObject orderTextObject = Instantiate(orderTextPrefab, orderPoint.position, Quaternion.identity, orderPoint);
 
-                    // Найдите компонент Text внутри префаба
                     Text textComponent = orderTextObject.GetComponentInChildren<Text>();
                     if (textComponent != null)
                     {
@@ -141,6 +147,8 @@ public class OrderSceneManager : MonoBehaviour
                     {
                         Debug.LogError("Text компонент не найден в префабе!");
                     }
+
+                    orderObjects[order.npcID] = orderTextObject;
                     orderDisplayed = true;
                 }
                 else
@@ -152,12 +160,79 @@ public class OrderSceneManager : MonoBehaviour
 
             if (!orderDisplayed)
             {
-                // Если заказов меньше, чем точек, оставляем точку пустой
                 Transform orderPoint = orderPoints[i];
                 foreach (Transform child in orderPoint)
                 {
                     Destroy(child.gameObject);
                 }
+            }
+        }
+    }
+
+    public bool CheckOrder(List<GameObject> placedIngredients)
+    {
+        foreach (var order in orders)
+        {
+            if (order.IsCompleted && interactedNPCIDs.Contains(order.npcID))
+            {
+                bool orderComplete = true;
+
+                foreach (Ingredient ingredient in order.ingredients)
+                {
+                    bool ingredientFound = false;
+                    foreach (GameObject placedIngredient in placedIngredients)
+                    {
+                        string placedIngredientName = placedIngredient.name.Replace("(Clone)", "").Trim();
+                        if (ingredient.prefab.name == placedIngredientName)
+                        {
+                            ingredientFound = true;
+                            break;
+                        }
+                    }
+                    if (!ingredientFound)
+                    {
+                        orderComplete = false;
+                        break;
+                    }
+                }
+
+                if (orderComplete)
+                {
+                    Debug.Log("Заказ выполнен!");
+                    RemoveOrderFromScene(order.npcID);
+                    order.IsCompleted = true;
+                    SaveOrderState(order.OrderID); // Сохраняем состояние заказа
+                    SceneManager.LoadScene("RestaurantScene"); // Переход на сцену ресторана
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("Заказ не выполнен. Не все ингредиенты найдены.");
+                }
+            }
+        }
+        return false;
+    }
+
+    private void RemoveOrderFromScene(int npcID)
+    {
+        if (orderObjects.TryGetValue(npcID, out GameObject orderObject))
+        {
+            Destroy(orderObject);
+            orderObjects.Remove(npcID); // Удаляем ссылку из словаря
+        }
+    }
+
+    private void SaveOrderState(int OrderID)
+    {
+        using (var connection = new SqliteConnection(dbPath))
+        {
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "UPDATE Orders SET IsCookingCompleted = 1 WHERE OrderID = @orderID";
+                command.Parameters.AddWithValue("@orderID", OrderID);
+                command.ExecuteNonQuery();
             }
         }
     }

@@ -18,10 +18,6 @@ public class NPCManager : MonoBehaviour
     public Dictionary<int, GameObject> npcDictionary = new Dictionary<int, GameObject>(); // Словарь для хранения NPC по ID
     public OrderData orderData;
     private List<int> interactedNPCIDs = new List<int>(); // Список ID взаимодействовавших NPC
-    public List<int> GetInteractedNPCIDs()
-    {
-        return interactedNPCIDs;
-    }
     public void SaveInteractedNPCIDs()
     {
         string ids = string.Join(",", interactedNPCIDs);
@@ -70,7 +66,7 @@ public class NPCManager : MonoBehaviour
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT DISTINCT NPCID FROM Orders";
+                command.CommandText = "SELECT NPCID FROM Orders WHERE IsCookingCompleted = 0";
                 using (IDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -82,6 +78,7 @@ public class NPCManager : MonoBehaviour
             }
         }
     }
+
 
     public void SpawnNPC()
     {
