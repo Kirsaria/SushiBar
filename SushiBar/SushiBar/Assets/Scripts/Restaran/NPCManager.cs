@@ -18,6 +18,10 @@ public class NPCManager : MonoBehaviour
     public Dictionary<int, GameObject> npcDictionary = new Dictionary<int, GameObject>(); // Словарь для хранения NPC по ID
     public OrderData orderData;
     private List<int> interactedNPCIDs = new List<int>(); // Список ID взаимодействовавших NPC
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
+    }
     public void SaveInteractedNPCIDs()
     {
         string ids = string.Join(",", interactedNPCIDs);

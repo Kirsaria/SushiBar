@@ -10,6 +10,11 @@ public class HintTrigger : MonoBehaviour
     private bool playerInTrigger = false;
     private NPCManager npcManager;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         npcManager = FindObjectOfType<NPCManager>();
@@ -19,7 +24,10 @@ public class HintTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            animator.SetTrigger("IsTriggered");
+            if (animator != null)
+            {
+                animator.SetTrigger("IsTriggered");
+            }
             playerInTrigger = true;
         }
     }
@@ -28,7 +36,10 @@ public class HintTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            animator.SetTrigger("IsTriggered");
+            if (animator != null)
+            {
+                animator.SetTrigger("IsTriggered");
+            }
             playerInTrigger = false;
         }
     }

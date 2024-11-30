@@ -9,6 +9,11 @@ public class DialogueUI : MonoBehaviour
     public GameObject dialoguePanel;
     private Coroutine typingCoroutine;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
+    }
+
     public void StartDialogue(Dialogue dialogue)
     {
         dialoguePanel.SetActive(true);

@@ -23,11 +23,22 @@ public class NPCInteraction : MonoBehaviour
     {
         interactedNPCs = new List<int>();
         DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
+        animator = GetComponent<Animator>();
+        AnimatorManager.Instance.SetNPCAnimator(animator);
+        AnimatorManager.Instance.SetDialogAnimator(animatorDialog);
     }
 
     private void Start()
     {
         npcManager = FindObjectOfType<NPCManager>();
+        if (animator == null)
+        {
+            animator = AnimatorManager.Instance.npcAnimator; // Привязываем аниматор, если он не был установлен
+        }
+        if (animatorDialog == null)
+        {
+            animatorDialog = AnimatorManager.Instance.dialogAnimator; // Привязываем аниматор диалога, если он не был установлен
+        }
     }
 
     public void InteractWithNPC(int npcId)
@@ -75,6 +86,12 @@ public class NPCInteraction : MonoBehaviour
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
             DialogueUI dialogueUI = FindObjectOfType<DialogueUI>();
+            if (dialogueUI == null)
+            {
+                Debug.LogError("DialogueUI не найден!");
+                return;
+            }
+
             if (isDialogueActive)
             {
                 dialogueUI.EndDialogue();
@@ -89,6 +106,7 @@ public class NPCInteraction : MonoBehaviour
             }
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
