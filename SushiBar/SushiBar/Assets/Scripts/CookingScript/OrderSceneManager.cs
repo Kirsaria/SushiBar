@@ -80,7 +80,7 @@ public class OrderSceneManager : MonoBehaviour
                             {
                                 OrderID = orderId,
                                 npcID = npcId,
-                                IsCompleted = isCompleted,
+                                HasTaken = isCompleted,
                                 IsCookingCompleted = isCookingCompleted,
                                 ingredients = new List<Ingredient>()
                             };
@@ -133,8 +133,8 @@ public class OrderSceneManager : MonoBehaviour
             while (orderIndex < orders.Count && !orderDisplayed)
             {
                 var order = orders[orderIndex];
-                Debug.Log($"Проверка заказа: {order.npcID}, IsCompleted: {order.IsCompleted}");
-                if (order.IsCompleted && interactedNPCIDs.Contains(order.npcID))
+                Debug.Log($"Проверка заказа: {order.npcID}, IsCompleted: {order.HasTaken}");
+                if (order.HasTaken && interactedNPCIDs.Contains(order.npcID))
                 {
                     Debug.Log($"Заказ найден: {order.npcID}");
                     string orderText = GetIngridientsStr(order.ingredients);
@@ -176,7 +176,7 @@ public class OrderSceneManager : MonoBehaviour
     {
         foreach (var order in orders)
         {
-            if (order.IsCompleted && interactedNPCIDs.Contains(order.npcID))
+            if (order.HasTaken && interactedNPCIDs.Contains(order.npcID))
             {
                 bool orderComplete = true;
 
@@ -195,29 +195,30 @@ public class OrderSceneManager : MonoBehaviour
                     if (!ingredientFound)
                     {
                         orderComplete = false;
+                        Debug.Log($"Ингредиент {ingredient.prefab.name} не найден для заказа {order.OrderID}.");
                         break;
                     }
                 }
 
                 if (orderComplete)
                 {
-                    Debug.Log("Заказ выполнен!");
+                    Debug.Log($"Заказ {order.OrderID} выполнен!");
                     RemoveOrderFromScene(order.npcID);
-                    order.IsCompleted = true;
+                    order.HasTaken = true;
                     SaveOrderState(order.OrderID); // Сохраняем состояние заказа
-                    cameraCooking.SetActive(false);
-                    cameraMain.SetActive(true);
-                    cookingCanvas.SetActive(false); // Переход на сцену ресторана
+                    UpdateNPCState(order.npcID);
+                    StartCoroutine(SwitchToMainSceneWithDelay());
                     return true;
                 }
                 else
                 {
-                    Debug.Log("Заказ не выполнен. Не все ингредиенты найдены.");
+                    Debug.Log($"Заказ {order.OrderID} не выполнен. Не все ингредиенты найдены.");
                 }
             }
         }
         return false;
     }
+
 
     private void RemoveOrderFromScene(int npcID)
     {
@@ -240,5 +241,36 @@ public class OrderSceneManager : MonoBehaviour
                 command.ExecuteNonQuery();
             }
         }
+    }
+
+    public void UpdateNPCState(int npcID)
+    {
+        NPCInteraction npc = FindNPCById(npcID); // Метод для поиска NPC по ID
+        if (npc != null)
+        {
+            npc.isWaitingForOrder = false; // NPC больше не ждет заказ
+            npc.isOrderComplete = true;   // Заказ выполнен
+            Debug.Log($"Состояние NPC {npcID} обновлено: заказ завершен.");
+        }
+    }
+
+    private NPCInteraction FindNPCById(int npcID)
+    {
+        NPCInteraction[] npcs = FindObjectsOfType<NPCInteraction>();
+        foreach (var npc in npcs)
+        {
+            if (npc.npcID == npcID)
+            {
+                return npc;
+            }
+        }
+        return null;
+    }
+    private IEnumerator SwitchToMainSceneWithDelay()
+    {
+        yield return new WaitForSeconds(2f); // Ждем 2 секунды
+        cameraCooking.SetActive(false);
+        cameraMain.SetActive(true);
+        cookingCanvas.SetActive(false); // Переход на сцену ресторана
     }
 }

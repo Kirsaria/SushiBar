@@ -20,7 +20,7 @@ public class Orders
 {
     public int OrderID;
     public List<Ingredient> ingredients;
-    public bool IsCompleted = false;
+    public bool HasTaken = false;
     public bool IsCookingCompleted = false;
     public int npcID;
 }
@@ -75,7 +75,7 @@ public class OrderManager : MonoBehaviour
                             {
                                 OrderID = orderId,
                                 npcID = npcId,
-                                IsCompleted = isCompleted,
+                                HasTaken = isCompleted,
                                 IsCookingCompleted = isCookingCompleted,
                                 ingredients = new List<Ingredient>()
                             };

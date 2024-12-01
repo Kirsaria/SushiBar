@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8181033212901640992}
   - component: {fileID: 7645761959869415183}
   m_Layer: 5
-  m_Name: 'Rice3Prefab '
+  m_Name: Rice3Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

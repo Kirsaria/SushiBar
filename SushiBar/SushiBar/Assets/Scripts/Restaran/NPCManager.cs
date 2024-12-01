@@ -204,15 +204,41 @@ public class NPCManager : MonoBehaviour
 
         // Выключаем коллайдер NPC
         npcCollider.enabled = false;
-        UpdateDialogueToWaiting(npc);
         occupiedChairPoints[chairIndex] = true;
     }
-
-    private void UpdateDialogueToWaiting(GameObject npc)
+    public Vector3 GetSpawnPosition(int npcID)
     {
-        npc.GetComponent<NPCInteraction>().dialogue = new Dialogue
+        return spawnPoints[npcID % spawnPoints.Length].position; // Пример, если у вас есть массив spawnPoints
+    }
+    public void MoveAndDestroyNPC(GameObject npc)
+    {
+        Vector3 spawnPosition = GetSpawnPosition(npc.GetComponent<NPCInteraction>().npcID);
+        StartCoroutine(MoveToSpawnPosition(npc, spawnPosition));
+    }
+
+    private IEnumerator MoveToSpawnPosition(GameObject npc, Vector3 targetPosition)
+    {
+        Animator npcAnimator = npc.GetComponent<Animator>();
+        float speed = 1.0f;
+
+        npcAnimator.SetTrigger("Stand");
+        npcAnimator.SetFloat("Speed", 1.0f); // Установите скорость для анимации ходьбы
+
+        while (Vector3.Distance(npc.transform.position, targetPosition) > 0.1f)
         {
-            sentences = new string[] { "Я жду свой заказ." }
-        };
+            Vector3 direction = (targetPosition - npc.transform.position).normalized;
+
+            // Установка параметров анимации в зависимости от направления движения
+            npcAnimator.SetFloat("Speed", speed);
+            npcAnimator.SetFloat("Horizontal", direction.x);
+            npcAnimator.SetFloat("Vertical", direction.y);
+
+            npc.transform.position = Vector3.MoveTowards(npc.transform.position, targetPosition, Time.deltaTime * speed);
+            yield return null;
+        }
+
+        // Остановка анимации после достижения цели
+        npcAnimator.SetFloat("Speed", 0);
+        Destroy(npc);
     }
 }

@@ -18,6 +18,10 @@ public class NPCInteraction : MonoBehaviour
     private NPCManager npcManager;
     [SerializeField] private OrderData orderData;
     private List<int> interactedNPCs;
+    public bool isWaitingForOrder = true; // NPC ожидает выполнения заказа
+    public bool isOrderComplete = false; // Заказ выполнен
+    public bool hasCompletedDialogue = false;
+    public int rewardPoint;
 
     private void Awake()
     {
@@ -43,6 +47,8 @@ public class NPCInteraction : MonoBehaviour
 
     public void InteractWithNPC(int npcId)
     {
+        DialogueUI dialogueUI = FindObjectOfType<DialogueUI>();
+
         if (!interactedNPCs.Contains(npcId))
         {
             interactedNPCs.Add(npcId);
@@ -62,7 +68,7 @@ public class NPCInteraction : MonoBehaviour
             }
 
             // Обновляем данные в OrderData
-            Orders newOrder = new Orders { npcID = npcId, IsCompleted = true, ingredients = new List<Ingredient>() };
+            Orders newOrder = new Orders { npcID = npcId, HasTaken = true, ingredients = new List<Ingredient>() };
             orderData.orders.Add(newOrder);
 
             // Добавляем NPC в список взаимодействий в NPCManager
@@ -74,6 +80,29 @@ public class NPCInteraction : MonoBehaviour
             {
                 Debug.LogError("NPCManager не найден!");
             }
+        }
+        else if (isOrderComplete && !isWaitingForOrder) // Проверяем, завершен ли заказ
+        {
+            // Обновляем диалог NPC
+            dialogue = new Dialogue
+            {
+                sentences = new string[] { "Спасибо за выполненный заказ!" }
+            };
+
+            // Начисляем очки игроку
+            PlayerStats.Instance.AddPoints(10);
+            hasCompletedDialogue = true; // Помечаем диалог как завершенный
+            Debug.Log($"Начислено {rewardPoint + 10} очков за выполнение заказа!");
+            dialogueUI.StartDialogue(dialogue);
+            StartCoroutine(WaitForDialogueEnd(dialogueUI));
+        }
+        else if (isWaitingForOrder) // Если NPC ждет заказ
+        {
+            // Обновляем диалог NPC на ожидание
+            dialogue = new Dialogue
+            {
+                sentences = new string[] { "Я жду свой заказ." }
+            };
         }
         else
         {
@@ -91,7 +120,6 @@ public class NPCInteraction : MonoBehaviour
                 Debug.LogError("DialogueUI не найден!");
                 return;
             }
-
             if (isDialogueActive)
             {
                 dialogueUI.EndDialogue();
@@ -100,9 +128,9 @@ public class NPCInteraction : MonoBehaviour
             }
             else
             {
+                InteractWithNPC(npcID);
                 dialogueUI.StartDialogue(dialogue);
                 isDialogueActive = true;
-                InteractWithNPC(npcID);
             }
         }
     }
@@ -131,10 +159,14 @@ public class NPCInteraction : MonoBehaviour
             }
         }
     }
-
     public void EnableInteraction(int index)
     {
         chairIndex = index;
         isPlayerNearby = true;
+    }
+    private IEnumerator WaitForDialogueEnd(DialogueUI dialogueUI)
+    {
+        yield return new WaitUntil(() => !dialogueUI.IsDialogueActive()); // Ждем, пока диалог не завершится
+        npcManager.MoveAndDestroyNPC(gameObject); // Перемещаем и уничтожаем NPC
     }
 }

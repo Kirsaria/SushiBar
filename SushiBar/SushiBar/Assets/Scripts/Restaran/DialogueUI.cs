@@ -8,6 +8,7 @@ public class DialogueUI : MonoBehaviour
     public TMP_Text dialogueText;
     public GameObject dialoguePanel;
     private Coroutine typingCoroutine;
+    private bool isDialogueActive = false; // Переменная для отслеживания состояния диалога
 
     private void Awake()
     {
@@ -16,6 +17,7 @@ public class DialogueUI : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        isDialogueActive = true; // Устанавливаем состояние диалога в активное
         dialoguePanel.SetActive(true);
         if (typingCoroutine != null)
         {
@@ -41,5 +43,12 @@ public class DialogueUI : MonoBehaviour
             StopCoroutine(typingCoroutine);
         }
         dialoguePanel.SetActive(false);
+        isDialogueActive = false; // Устанавливаем состояние диалога в неактивное
+    }
+
+    // Метод для проверки состояния диалога
+    public bool IsDialogueActive()
+    {
+        return isDialogueActive;
     }
 }

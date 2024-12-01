@@ -97,8 +97,6 @@ public class GameManager : MonoBehaviour
             placedIngredients.Clear(); // Очищаем список размещённых ингредиентов
         }
     }
-
-
     private void MoveIngredientsToPlate()
     {
         foreach (GameObject ingredient in placedIngredients)
