@@ -15,6 +15,9 @@ public class OrderSceneManager : MonoBehaviour
     private List<Orders> orders;
     private List<int> interactedNPCIDs;
     private Dictionary<int, GameObject> orderObjects; // Словарь для хранения объектов заказов
+    public GameObject cookingCanvas;
+    public GameObject cameraMain;
+    public GameObject cameraCooking;
 
     private void Start()
     {
@@ -202,7 +205,9 @@ public class OrderSceneManager : MonoBehaviour
                     RemoveOrderFromScene(order.npcID);
                     order.IsCompleted = true;
                     SaveOrderState(order.OrderID); // Сохраняем состояние заказа
-                    SceneManager.LoadScene("RestaurantScene"); // Переход на сцену ресторана
+                    cameraCooking.SetActive(false);
+                    cameraMain.SetActive(true);
+                    cookingCanvas.SetActive(false); // Переход на сцену ресторана
                     return true;
                 }
                 else

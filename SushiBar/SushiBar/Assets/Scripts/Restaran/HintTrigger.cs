@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,9 @@ public class HintTrigger : MonoBehaviour
     public string nextSceneName;
     private bool playerInTrigger = false;
     private NPCManager npcManager;
+    public GameObject cookingCanvas;
+    public GameObject cameraMain;
+    public GameObject cameraCooking;
 
     private void Awake()
     {
@@ -57,9 +61,10 @@ public class HintTrigger : MonoBehaviour
             {
                 Debug.LogError("NPCManager не найден!");
             }
-
+            cameraMain.SetActive(false);
+            cameraCooking.SetActive(true);
             // Переход на другую сцену
-            SceneManager.LoadScene(nextSceneName);
+            cookingCanvas.SetActive(true);
         }
     }
 }
