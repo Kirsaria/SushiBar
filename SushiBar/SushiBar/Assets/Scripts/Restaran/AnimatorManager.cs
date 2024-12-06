@@ -11,7 +11,6 @@ public class AnimatorManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
     }
 

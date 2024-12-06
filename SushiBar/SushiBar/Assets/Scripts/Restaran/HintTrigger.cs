@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,15 +14,12 @@ public class HintTrigger : MonoBehaviour
     public GameObject cookingCanvas;
     public GameObject cameraMain;
     public GameObject cameraCooking;
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+    public PlayerControler playerControler;
 
     private void Start()
     {
         npcManager = FindObjectOfType<NPCManager>();
+        playerControler = FindObjectOfType<PlayerControler>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,7 +48,7 @@ public class HintTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (playerInTrigger && Input.GetKeyDown(KeyCode.E))
+        if (playerInTrigger && Input.GetKeyDown(KeyCode.E) && playerControler.hasDish == false)
         {
             // Сохранение списка взаимодействовавших NPC
             if (npcManager != null)
@@ -65,6 +63,15 @@ public class HintTrigger : MonoBehaviour
             cameraCooking.SetActive(true);
             // Переход на другую сцену
             cookingCanvas.SetActive(true);
+            var orderSceneManager = FindObjectOfType<OrderSceneManager>();
+            if (orderSceneManager != null)
+            {
+                orderSceneManager.DisplayOrders(); // Убедитесь, что метод доступен
+            }
+            else
+            {
+                Debug.LogError("OrderSceneManager не найден!");
+            }
         }
     }
 }

@@ -10,11 +10,6 @@ public class DialogueUI : MonoBehaviour
     private Coroutine typingCoroutine;
     private bool isDialogueActive = false; // Переменная для отслеживания состояния диалога
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
-    }
-
     public void StartDialogue(Dialogue dialogue)
     {
         isDialogueActive = true; // Устанавливаем состояние диалога в активное

@@ -37,15 +37,19 @@ public class MenuIngridients : MonoBehaviour
 
     private void CloseAllOpenPanels()
     {
-        foreach (var openPanel in openPanels)
+        for (int i = openPanels.Count - 1; i >= 0; i--)
         {
-            if (openPanel != this)
+            var openPanel = openPanels[i];
+            if (openPanel != null && openPanel != this)
             {
                 openPanel.StartCoroutine(openPanel.SlideToPosition(openPanel.hiddenPosition));
                 openPanel.isVisible = false;
             }
+            else
+            {
+                openPanels.RemoveAt(i);
+            }
         }
-        openPanels.Clear();
     }
 
     private IEnumerator SlideToPosition(Vector2 targetPosition)
@@ -61,5 +65,10 @@ public class MenuIngridients : MonoBehaviour
         }
 
         panel.anchoredPosition = targetPosition;
+    }
+
+    private void OnDestroy()
+    {
+        openPanels.Remove(this);
     }
 }

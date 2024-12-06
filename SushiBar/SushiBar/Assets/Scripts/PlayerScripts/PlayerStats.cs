@@ -24,4 +24,14 @@ public class PlayerStats : MonoBehaviour
         playerPoints += points;
         Debug.Log($"Очки игрока: {playerPoints}");
     }
+
+    public int GetPoints()
+    {
+        return playerPoints;
+    }
+    public void SetTotalTears(int totalTears)
+    {
+        playerPoints = totalTears;
+        Debug.Log($"Общее количество слез установлено: {playerPoints}");
+    }
 }

@@ -7,6 +7,7 @@ using Mono.Data.Sqlite;
 
 public class NPCManager : MonoBehaviour
 {
+    public static NPCManager Instance { get; private set; }
     [SerializeField] private GameObject[] npcPrefabs;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Transform[] targetPoints;
@@ -15,19 +16,15 @@ public class NPCManager : MonoBehaviour
     private bool[] occupiedTargetPoints;
     private bool[] occupiedChairPoints;
     private OrderManager orderManager;
+    public List<Orders> orders = new List<Orders>();
     public Dictionary<int, GameObject> npcDictionary = new Dictionary<int, GameObject>(); // Словарь для хранения NPC по ID
-    public OrderData orderData;
     private List<int> interactedNPCIDs = new List<int>(); // Список ID взаимодействовавших NPC
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
-    }
+    public int requiredNPCCount = 4;
     public void SaveInteractedNPCIDs()
     {
         string ids = string.Join(",", interactedNPCIDs);
         PlayerPrefs.SetString("InteractedNPCIDs", ids);
         PlayerPrefs.Save();
-        Debug.Log($"Сохранено взаимодействующих NPC: {ids}");
 
         // Сохранение заказов
         if (orderManager != null)
@@ -39,13 +36,22 @@ public class NPCManager : MonoBehaviour
             Debug.LogError("OrderManager не найден!");
         }
     }
-
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this; // Устанавливаем экземпляр при первом создании
+        }
+        else
+        {
+            Destroy(gameObject); // Уничтожаем дубликаты
+        }
+    }
     public void AddInteractedNPC(int npcID)
     {
         if (!interactedNPCIDs.Contains(npcID))
         {
             interactedNPCIDs.Add(npcID);
-            Debug.Log($"NPC с ID {npcID} добавлен в список interactedNPCIDs.");
         }
         else
         {
@@ -99,8 +105,7 @@ public class NPCManager : MonoBehaviour
         npc.GetComponent<NPCInteraction>().animator = GameObject.FindGameObjectWithTag("HintTag").GetComponent<Animator>();
         npc.GetComponent<NPCInteraction>().npcID = npcId; // Присваиваем NPCID из базы данных
         npcDictionary.Add(npcId, npc); // Добавляем NPC в словарь
-        orderData.npcDictionary.Add(npcId, npc);
-        AssignOrderToNPC(npc);
+        StartCoroutine(AssignOrderToNPCWithDelay(npc, 2f));
         spawnedNPCs.Add(npc);
 
         for (int i = 0; i < targetPoints.Length; i++)
@@ -116,13 +121,24 @@ public class NPCManager : MonoBehaviour
         Invoke("SpawnNPC", 2f);
     }
 
-    private void AssignOrderToNPC(GameObject npc)
+    private IEnumerator AssignOrderToNPCWithDelay(GameObject npc, float delay)
     {
+        // Задержка перед выдачей заказа
+        yield return new WaitForSeconds(delay);
+
         int npcId = npc.GetComponent<NPCInteraction>().npcID;
         Orders order = orderManager.GetOrderForNPC(npcId); // Получаем заказ для конкретного NPC
+
+        if (order == null)
+        {
+            Debug.LogError($"Заказ для NPC с ID {npcId} не найден!");
+            yield break; // Прерываем выполнение, если нет заказа
+        }
+
         npc.GetComponent<NPCInteraction>().order = order; // Присваиваем заказ NPC
         npc.GetComponent<NPCInteraction>().dialogue = orderManager.CreateOrderDialogue(order);
-        orderData.orders.Add(order); // Добавляем заказ в OrderData
+        orders.Add(order); // Добавляем заказ в OrderData
+
     }
 
     private IEnumerator MoveNPCToPosition(GameObject npc, Vector3 targetPosition, int targetIndex)
@@ -240,5 +256,38 @@ public class NPCManager : MonoBehaviour
         // Остановка анимации после достижения цели
         npcAnimator.SetFloat("Speed", 0);
         Destroy(npc);
+        spawnedNPCs.Remove(npc);
+    }
+    public void RemoveAllNPCs()
+    {
+        foreach (var npc in spawnedNPCs)
+        {
+            if (npc != null) // Проверяем, существует ли NPC
+            {
+                Vector3 spawnPosition = GetSpawnPosition(npc.GetComponent<NPCInteraction>().npcID);
+                StartCoroutine(MoveToSpawnPosition(npc, spawnPosition)); // Перемещаем NPC к точке спавна
+            }
+        }
+    }
+    public bool AllNPCsServed()
+    {
+        if (spawnedNPCs.Count == 0)
+        {
+            // Проверяем заказы
+            string conn = "URI=file:Orders.db";
+            using (var connection = new SqliteConnection(conn))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT COUNT(*) FROM Orders WHERE IsCookingCompleted = 1"; // 1 - завершенные заказы
+                    long completedCount = (long)command.ExecuteScalar();
+
+                    // Проверяем, завершены ли 4 заказа
+                    return completedCount >= requiredNPCCount; // Возвращаем true, если завершенных заказов 4 или больше
+                }
+            }
+        }
+        return false;
     }
 }

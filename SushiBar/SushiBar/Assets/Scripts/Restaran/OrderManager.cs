@@ -37,10 +37,27 @@ public class OrderManager : MonoBehaviour
     private void Start()
     {
         dbPath = "URI=file:Orders.db";
+        ResetOrderCompletionStatus();
         LoadOrdersFromDatabase();
         interactedNPCs = new List<int>(); // Инициализация списка
     }
-
+    private void ResetOrderCompletionStatus()
+    {
+        using (var connection = new SqliteConnection(dbPath))
+        {
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                // SQL-запрос для сброса значений IsCompleted и IsCookingCompleted
+                command.CommandText = @"
+                    UPDATE Orders
+                    SET IsCompleted = 0, IsCookingCompleted = 0
+                ";
+                command.ExecuteNonQuery(); // Выполнение запроса
+                Debug.Log("Статусы заказов сброшены.");
+            }
+        }
+    }
     private void LoadOrdersFromDatabase()
     {
         availableOrders = new List<Orders>();
@@ -129,5 +146,4 @@ public class OrderManager : MonoBehaviour
 
         return new Dialogue { sentences = sentences };
     }
-
 }

@@ -18,13 +18,13 @@ public class OrderSceneManager : MonoBehaviour
     public GameObject cookingCanvas;
     public GameObject cameraMain;
     public GameObject cameraCooking;
+    public PlayerControler playerControler;
 
     private void Start()
     {
         dbPath = "URI=file:Orders.db";
-        LoadInteractedNPCIDs();
-        LoadOrdersFromDatabase();
         orderObjects = new Dictionary<int, GameObject>();
+        playerControler = FindObjectOfType<PlayerControler>();
         DisplayOrders();
     }
 
@@ -43,7 +43,6 @@ public class OrderSceneManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log($"Загружено взаимодействующих NPC: {string.Join(",", interactedNPCIDs)}");
     }
 
     private void LoadOrdersFromDatabase()
@@ -123,8 +122,10 @@ public class OrderSceneManager : MonoBehaviour
         return strIngridients;
     }
 
-    private void DisplayOrders()
+    public void DisplayOrders()
     {
+        LoadInteractedNPCIDs();
+        LoadOrdersFromDatabase();
         Debug.Log("DisplayOrders вызван");
         int orderIndex = 0;
         for (int i = 0; i < orderPoints.Length; i++)
@@ -134,7 +135,7 @@ public class OrderSceneManager : MonoBehaviour
             {
                 var order = orders[orderIndex];
                 Debug.Log($"Проверка заказа: {order.npcID}, IsCompleted: {order.HasTaken}");
-                if (order.HasTaken && interactedNPCIDs.Contains(order.npcID))
+                if (order.HasTaken && interactedNPCIDs.Contains(order.npcID) && !order.IsCookingCompleted)
                 {
                     Debug.Log($"Заказ найден: {order.npcID}");
                     string orderText = GetIngridientsStr(order.ingredients);
@@ -203,6 +204,7 @@ public class OrderSceneManager : MonoBehaviour
                 if (orderComplete)
                 {
                     Debug.Log($"Заказ {order.OrderID} выполнен!");
+                    playerControler.SetHasDish(true);
                     RemoveOrderFromScene(order.npcID);
                     order.HasTaken = true;
                     SaveOrderState(order.OrderID); // Сохраняем состояние заказа

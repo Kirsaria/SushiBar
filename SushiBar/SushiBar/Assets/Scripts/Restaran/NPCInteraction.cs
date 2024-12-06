@@ -1,6 +1,8 @@
 using Mono.Data.Sqlite;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +18,14 @@ public class NPCInteraction : MonoBehaviour
     private int chairIndex; // Индекс стула
     public bool IsSitting = false;
     private NPCManager npcManager;
-    [SerializeField] private OrderData orderData;
     private List<int> interactedNPCs;
     public bool isWaitingForOrder = true; // NPC ожидает выполнения заказа
     public bool isOrderComplete = false; // Заказ выполнен
     public bool hasCompletedDialogue = false;
     public int rewardPoint;
+    private Text scoreText;
+    public PlayerControler playerControler;
+    private UserDataSaver userDataSaver;
 
     private void Awake()
     {
@@ -31,10 +35,33 @@ public class NPCInteraction : MonoBehaviour
         AnimatorManager.Instance.SetNPCAnimator(animator);
         AnimatorManager.Instance.SetDialogAnimator(animatorDialog);
     }
+    void LoadData()
+    {
+        userDataSaver = FindObjectOfType<UserDataSaver>(); // Инициализируем userDataSaver
 
+        if (userDataSaver != null)
+        {
+            PlayerStats.Instance.SetTotalTears(userDataSaver.totalTears);
+            UpdateScoreText(); // Обновляем текст очков после загрузки
+        }
+        else
+        {
+            Debug.LogError("UserDataSaver не найден!");
+        }
+    }
     private void Start()
     {
         npcManager = FindObjectOfType<NPCManager>();
+        playerControler = FindObjectOfType<PlayerControler>();
+        GameObject scoreTextObject = GameObject.FindGameObjectWithTag("ScoreText");
+        if (scoreTextObject != null)
+        {
+            scoreText = scoreTextObject.GetComponent<Text>(); // Используйте TMP_Text, если используете TextMeshPro
+        }
+        else
+        {
+            Debug.LogError("Текстовое поле для очков не найдено по тегу 'ScoreText'!");
+        }
         if (animator == null)
         {
             animator = AnimatorManager.Instance.npcAnimator; // Привязываем аниматор, если он не был установлен
@@ -43,6 +70,7 @@ public class NPCInteraction : MonoBehaviour
         {
             animatorDialog = AnimatorManager.Instance.dialogAnimator; // Привязываем аниматор диалога, если он не был установлен
         }
+        LoadData();
     }
 
     public void InteractWithNPC(int npcId)
@@ -52,7 +80,6 @@ public class NPCInteraction : MonoBehaviour
         if (!interactedNPCs.Contains(npcId))
         {
             interactedNPCs.Add(npcId);
-            Debug.Log($"NPC с ID {npcId} добавлен в список взаимодействий.");
 
             // Обновляем статус заказа в базе данных
             string conn = "URI=file:Orders.db";
@@ -65,11 +92,12 @@ public class NPCInteraction : MonoBehaviour
                     command.Parameters.Add(new SqliteParameter("@npcId", npcId));
                     command.ExecuteNonQuery();
                 }
+                connection.Close();
             }
 
             // Обновляем данные в OrderData
             Orders newOrder = new Orders { npcID = npcId, HasTaken = true, ingredients = new List<Ingredient>() };
-            orderData.orders.Add(newOrder);
+            NPCManager.Instance.orders.Add(newOrder);
 
             // Добавляем NPC в список взаимодействий в NPCManager
             if (npcManager != null)
@@ -90,9 +118,10 @@ public class NPCInteraction : MonoBehaviour
             };
 
             // Начисляем очки игроку
-            PlayerStats.Instance.AddPoints(10);
+            PlayerStats.Instance.AddPoints(2);
+            UpdateScoreText();
             hasCompletedDialogue = true; // Помечаем диалог как завершенный
-            Debug.Log($"Начислено {rewardPoint + 10} очков за выполнение заказа!");
+            playerControler.SetHasDish(false);   
             dialogueUI.StartDialogue(dialogue);
             StartCoroutine(WaitForDialogueEnd(dialogueUI));
         }
@@ -168,5 +197,16 @@ public class NPCInteraction : MonoBehaviour
     {
         yield return new WaitUntil(() => !dialogueUI.IsDialogueActive()); // Ждем, пока диалог не завершится
         npcManager.MoveAndDestroyNPC(gameObject); // Перемещаем и уничтожаем NPC
+    }
+    private void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "" + PlayerStats.Instance.GetPoints(); // Обновляем текст очков
+        }
+        else
+        {
+            Debug.LogError("Текстовое поле для очков не установлено!");
+        }
     }
 }

@@ -2,11 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Data;
 using Mono.Data.Sqlite;
-using UnityEngine.Analytics;
-using System;
-using UnityEngine.SceneManagement;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System;
 
 public class Registration : MonoBehaviour
 {
@@ -17,50 +14,52 @@ public class Registration : MonoBehaviour
     public static bool Enter = false;
     public Button registerButton;
     public Button loginButton;
-    public GameObject mainMenu; 
+    public GameObject mainMenu;
     public GameObject registrationWindow;
-    public GameObject loginWindow; // Добавьте это поле
-    public InputField loginUsernameField; // Добавьте это поле
-    public InputField loginPasswordField; // Добавьте это поле
-    public Text loginErrorText; // Добавьте это поле
+    public GameObject loginWindow;
+    public InputField loginUsernameField;
+    public InputField loginPasswordField;
+    public Text loginErrorText;
 
     private string dbName = "URI=file:Users.db";
 
     private void Start()
     {
-        Debug.Log("Start method called");
+        Debug.Log("Метод Start вызван");
         CreateDB();
         registerButton.onClick.AddListener(OnRegisterButtonClick);
         loginButton.onClick.AddListener(OnLoginButtonClick);
     }
+
     private bool ValidatePassword(string password)
     {
         Regex regex = new Regex("^(?=.*[A-Z])(?=.*\\d)(?!.*\\s).{8,}$");
         return regex.IsMatch(password);
     }
+
     private bool ValidateUsername(string username)
     {
-        Regex regex = new Regex("^(?=.*[A-Z])[a-zA-Z]{3}[a-z]*$");
-        return regex.IsMatch(username);
+        Regex regex = new Regex("^(?=.*[A-Z])[a-zA-Z]{3,}$");
+        return regex.IsMatch(username) && !username.Contains("@") && !username.Contains(".");
     }
 
     private void CreateDB()
     {
-        Debug.Log("CreateDB method called");
+        Debug.Log("Метод CreateDB вызван");
         using (var connection = new SqliteConnection(dbName))
         {
             connection.Open();
-            Debug.Log("Database connection opened");
+            Debug.Log("Соединение с базой данных открыто");
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "CREATE TABLE IF NOT EXISTS users (username VARCHAR(20), password VARCHAR(20));";
+                command.CommandText = "CREATE TABLE IF NOT EXISTS users (username VARCHAR(20), password VARCHAR(20), Day TEXT, TotalTears INTEGER);";
                 command.ExecuteNonQuery();
-                Debug.Log("Table creation command executed");
+                Debug.Log("Команда на создание таблицы выполнена");
             }
 
             connection.Close();
-            Debug.Log("Database connection closed");
+            Debug.Log("Соединение с базой данных закрыто");
         }
     }
 
@@ -69,28 +68,28 @@ public class Registration : MonoBehaviour
         string username = usernameField.text;
         string password = passwordField.text;
         string doublePas = doublePas1.text;
-        if (doublePas == "" || doublePas == null)
+        if (string.IsNullOrEmpty(doublePas))
         {
             doublePas1.gameObject.SetActive(true);
-            errorText.text = "CONFRIM YOUR PASSWORD";
+            errorText.text = "ПОДТВЕРДИТЕ ВАШ ПАРОЛЬ";
         }
         else if (doublePas == password)
         {
-            errorText.text = "You are registed";
+            errorText.text = "Вы зарегистрированы";
             Register();
         }
-        else if(doublePas != password)
+        else
         {
-            errorText.text = "You are input the wrong password";
+            errorText.text = "Вы ввели неправильный пароль";
         }
-
     }
 
-    public void OnRegisterButtonClick() // Добавьте этот метод
+    public void OnRegisterButtonClick()
     {
         Register();
     }
-    public void OnLoginButtonClick() // Добавьте этот метод
+
+    public void OnLoginButtonClick()
     {
         Login();
     }
@@ -100,7 +99,7 @@ public class Registration : MonoBehaviour
         string username = loginUsernameField.text;
         string password = loginPasswordField.text;
 
-        if (username != "" && password != "")
+        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
         {
             using (var connection = new SqliteConnection(dbName))
             {
@@ -108,23 +107,25 @@ public class Registration : MonoBehaviour
 
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "';";
+                    command.CommandText = "SELECT * FROM users WHERE username=@username AND password=@password;";
+                    command.Parameters.Add(new SqliteParameter("@username", username));
+                    command.Parameters.Add(new SqliteParameter("@password", password));
                     using (IDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            loginErrorText.text = "Welcome!";
-                            Debug.Log("Login successful");
+                            loginErrorText.text = "Добро пожаловать!";
+                            Debug.Log("Успешный вход");
                             Enter = true;
+                            GlobalData.Instance.Username = username;
                             mainMenu.SetActive(true);
                             loginWindow.SetActive(false);
                         }
                         else
                         {
-                            loginErrorText.text = "Invalid username or password";
-                            Debug.Log("Login failed");
+                            loginErrorText.text = "Неверное имя пользователя или пароль";
+                            Debug.Log("Неудачный вход");
                         }
-                        reader.Close();
                     }
                 }
 
@@ -133,17 +134,17 @@ public class Registration : MonoBehaviour
         }
         else
         {
-            loginErrorText.text = "Please fill in all fields";
+            loginErrorText.text = "Пожалуйста, заполните все поля";
         }
     }
 
-public void Register()
+    public void Register()
     {
         string username = usernameField.text;
         string password = passwordField.text;
         string confirmPassword = doublePas1.text;
 
-        if (username != "" && password != "" && confirmPassword != "")
+        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(confirmPassword))
         {
             if (ValidateUsername(username))
             {
@@ -154,38 +155,41 @@ public void Register()
                         connection.Open();
                         using (var command = connection.CreateCommand())
                         {
-                            command.CommandText = "SELECT COUNT(*) FROM users WHERE username='" + username + "';";
+                            command.CommandText = "SELECT COUNT(*) FROM users WHERE username=@username;";
+                            command.Parameters.Add(new SqliteParameter("@username", username));
+
                             int count = Convert.ToInt32(command.ExecuteScalar());
                             if (count > 0)
                             {
-                                errorText.text = "User already exists";
-                                Debug.Log("User already exists");
+                                errorText.text = "Пользователь уже существует";
+                                Debug.Log("Пользователь уже существует");
                                 return;
                             }
-                            command.CommandText = "INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "');";
+                            command.CommandText = "INSERT INTO users (username, password, Day, TotalTears) VALUES (@username, @password, NULL, 0);";
+                            command.Parameters.Add(new SqliteParameter("@password", password));
                             command.ExecuteNonQuery();
                         }
                         connection.Close();
                     }
                     Enter = true;
-                    errorText.text = "Registration successful! Redirecting to main menu...";
-                    mainMenu.SetActive(true); // Активируем главное меню
-                    registrationWindow.SetActive(false); // Деактивируем окно регистрации
+                    GlobalData.Instance.Username = username;
+                    errorText.text = "Регистрация успешна! Перенаправление в главное меню...";
+                    mainMenu.SetActive(true);
+                    registrationWindow.SetActive(false);
                 }
                 else
                 {
-                    errorText.text = "Passwords do not match or do not meet the requirements";
+                    errorText.text = "Пароли не совпадают или не соответствуют требованиям";
                 }
             }
             else
             {
-                errorText.text = "Username must be at least 8 letters and contain only English alphabet letters";
+                errorText.text = "Имя пользователя должно содержать не менее 3 букв и не должно быть адресом электронной почты";
             }
         }
         else
         {
-            errorText.text = "Please fill in all fields";
+            errorText.text = "Пожалуйста, заполните все поля";
         }
     }
-
 }
