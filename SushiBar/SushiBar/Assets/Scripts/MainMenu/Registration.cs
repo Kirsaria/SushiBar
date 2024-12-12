@@ -33,13 +33,13 @@ public class Registration : MonoBehaviour
 
     private bool ValidatePassword(string password)
     {
-        Regex regex = new Regex("^(?=.*[A-Z])(?=.*\\d)(?!.*\\s).{8,}$");
+        Regex regex = new Regex("^(?=.*[A-Z])(?=.*\\d)(?!.*\\s).{8,20}$");
         return regex.IsMatch(password);
     }
 
     private bool ValidateUsername(string username)
     {
-        Regex regex = new Regex("^(?=.*[A-Z])[a-zA-Z]{3,}$");
+        Regex regex = new Regex("^(?=.*[A-Z])[a-zA-Z]{3,10}$");
         return regex.IsMatch(username) && !username.Contains("@") && !username.Contains(".");
     }
 

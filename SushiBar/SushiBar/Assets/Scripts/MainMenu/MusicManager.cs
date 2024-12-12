@@ -4,10 +4,28 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
+    public static MusicManager Instance;
     public AudioSource audioMusic;
-    private void Start()
+    public AudioSource audioSFX;
+    private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(audioMusic);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject); // Удаляем дубликаты
+        }
+    }
+    public void SetMusicVolume(float volume)
+    {
+        audioMusic.volume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        audioSFX.volume = volume;
     }
 }

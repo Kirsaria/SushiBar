@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using Mono.Data.Sqlite;
 
 public class TimerManager : MonoBehaviour
 {
@@ -39,6 +40,8 @@ public class TimerManager : MonoBehaviour
                 Debug.Log("Конец дня");
                 animatorButton.SetTrigger("IsOn");
                 hasDisplayedNPCsServed = true;
+                string currentDay = FindObjectOfType<UserDataSaver>().day;
+                SaveLevelTime($"{min:D2}:{sec:D2}", currentDay);
             }
 
             if (min == 23)
@@ -84,7 +87,75 @@ public class TimerManager : MonoBehaviour
             sec += delta;
             TimerText.text = min.ToString("D2") + " : " + sec.ToString("D2");
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+    private int CompareTimes(string time1, string time2)
+    {
+        // Формат времени: "MM:SS"
+        string[] parts1 = time1.Split(':');
+        string[] parts2 = time2.Split(':');
+
+        int minutes1 = int.Parse(parts1[0]);
+        int seconds1 = int.Parse(parts1[1]);
+
+        int minutes2 = int.Parse(parts2[0]);
+        int seconds2 = int.Parse(parts2[1]);
+
+        // Сравниваем минуты и секунды
+        if (minutes1 != minutes2)
+        {
+            return minutes1.CompareTo(minutes2); // Сравниваем минуты
+        }
+        return seconds1.CompareTo(seconds2); // Если минуты равны, сравниваем секунды
+    }
+    private void SaveLevelTime(string levelTime, string day)
+    {
+        string username = GlobalData.Instance.Username;
+        string conn = "URI=file:Users.db"; // Укажите путь к вашей базе данных
+
+        using (var connection = new SqliteConnection(conn))
+        {
+            connection.Open();
+
+            // Сначала проверяем, существует ли запись для данного пользователя и дня
+            using (var checkCommand = connection.CreateCommand())
+            {
+                checkCommand.CommandText = "SELECT LevelTime FROM LevelRecords WHERE username = @username AND Day = @day";
+                checkCommand.Parameters.AddWithValue("@username", username);
+                checkCommand.Parameters.AddWithValue("@day", day);
+
+                // Получаем текущее время рекорда
+                string currentRecordTime = checkCommand.ExecuteScalar() as string;
+
+                // Если запись существует и текущее время больше, обновляем
+                if (currentRecordTime != null)
+                {
+                    // Сравниваем текущий рекорд с новым рекордом
+                    if (CompareTimes(levelTime, currentRecordTime) < 0) // Если новый рекорд быстрее
+                    {
+                        using (var updateCommand = connection.CreateCommand())
+                        {
+                            updateCommand.CommandText = "UPDATE LevelRecords SET LevelTime = @levelTime WHERE username = @username AND Day = @day";
+                            updateCommand.Parameters.AddWithValue("@levelTime", levelTime);
+                            updateCommand.Parameters.AddWithValue("@username", username);
+                            updateCommand.Parameters.AddWithValue("@day", day);
+                            updateCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+                else // Если записи нет, вставляем новую
+                {
+                    using (var insertCommand = connection.CreateCommand())
+                    {
+                        insertCommand.CommandText = "INSERT INTO LevelRecords (username, Day, LevelTime) VALUES (@username, @day, @levelTime)";
+                        insertCommand.Parameters.AddWithValue("@username", username);
+                        insertCommand.Parameters.AddWithValue("@day", day);
+                        insertCommand.Parameters.AddWithValue("@levelTime", levelTime);
+                        insertCommand.ExecuteNonQuery();
+                    }
+                }
+            }
         }
     }
 

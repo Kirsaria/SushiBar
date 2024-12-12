@@ -68,7 +68,7 @@ public class UserDataSaver : MonoBehaviour
     }
     private void LoadUserData()
     {
-        username = GlobalData.Instance.Username; // Получаем имя пользователя
+        username = GlobalData.Instance.Username; 
 
         using (var connection = new SqliteConnection(dbName))
         {
