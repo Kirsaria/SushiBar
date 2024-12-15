@@ -20,14 +20,12 @@ public class DayResult : MonoBehaviour
 
     private void DisplayDayResults()
     {
-        // Подключение к базе данных
-        string conn = "URI=file:Orders.db"; // Укажите путь к вашей базе данных
+        string conn = "URI=file:Orders.db"; 
         using (var connection = new SqliteConnection(conn))
         {
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                // Получаем количество обслуженных клиентов
                 command.CommandText = "SELECT COUNT(*) FROM Orders WHERE IsCookingCompleted = 1";
                 int clientsServed = Convert.ToInt32(command.ExecuteScalar());
                 clientServedText.text = "Обслуженные клиенты: " + clientsServed;

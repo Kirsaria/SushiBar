@@ -100,13 +100,11 @@ public class UserDataSaver : MonoBehaviour
 
     private void OnEnable()
     {
-        // Подписываемся на событие загрузки сцены
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        // Отписываемся от события при отключении объекта
         UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 

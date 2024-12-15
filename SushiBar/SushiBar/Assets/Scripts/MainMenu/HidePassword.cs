@@ -9,7 +9,6 @@ public class HidePassword : MonoBehaviour
     public InputField passwordInputField;
     public Sprite showPasswordSprite; 
     public Sprite hidePasswordSprite; 
-
     private bool isPasswordVisible = false; 
     private Image buttonImage; 
 

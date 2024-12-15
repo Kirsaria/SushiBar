@@ -3,84 +3,24 @@
   "WorkspaceRootPath": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\restaran\\timermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\timermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|d:\\programming\\sushibargit\\sushibar\\sushibar\\sushibar\\assets\\scripts\\restaran\\demonscript\\dialoguetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\demonscript\\dialoguetrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|d:\\programming\\sushibargit\\sushibar\\sushibar\\sushibar\\assets\\scripts\\mainmenu\\scoreboardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\scoreboardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|d:\\programming\\sushibargit\\sushibar\\sushibar\\sushibar\\assets\\scripts\\mainmenu\\highscorescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\highscorescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\mainmenu\\highscore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\highscore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\mainmenu\\registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\mainmenu\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\mainmenu\\hidepassword.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\hidepassword.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\restaran\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\userdatasaver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\userdatasaver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\mainmenu\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\globaldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\globaldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\restaran\\nextscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\nextscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\restaran\\npcinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\npcinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\restaran\\dialogueui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\dialogueui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\restaran\\demonscript\\dialoguemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|d:\\programming\\sushibargit\\sushibar\\sushibar\\sushibar\\assets\\scripts\\restaran\\demonscript\\dialoguemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\demonscript\\dialoguemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\restaran\\animatormanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\animatormanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|d:\\programming\\sushibargit\\sushibar\\sushibar\\sushibar\\assets\\scripts\\restaran\\demonscript\\dialoguedemon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\demonscript\\dialoguedemon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\mainmenu\\musicmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\musicmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|d:\\programming\\sushibargit\\sushibar\\sushibar\\sushibar\\assets\\scripts\\restaran\\demonscript\\dialogueanimator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restaran\\demonscript\\dialogueanimator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\IsEnter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\MainMenu\\IsEnter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\mainmenu\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\assets\\scripts\\playerscripts\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerscripts\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|d:\\programming\\sushibargit\\sushibar\\sushibar\\sushibar\\assets\\scripts\\mainmenu\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5234750B-9F0A-69FC-D392-BA6184A4BC5B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -90,252 +30,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Registration.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\Registration.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\Registration.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\Registration.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\Registration.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAAwCYAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "DialogueTrigger.cs",
+              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DemonScript\\DialogueTrigger.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\DemonScript\\DialogueTrigger.cs",
+              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DemonScript\\DialogueTrigger.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Restaran\\DemonScript\\DialogueTrigger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T10:39:03.927Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "HighScoreScript.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\HighScoreScript.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\HighScoreScript.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\HighScoreScript.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\HighScoreScript.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T19:44:30.503Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HighScore.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\HighScore.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\HighScore.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\HighScore.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\HighScore.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T19:30:10.769Z",
+              "WhenOpened": "2024-12-15T11:00:40.701Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ScoreboardManager.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\ScoreboardManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\ScoreboardManager.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\ScoreboardManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\ScoreboardManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T12:56:54.213Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "HidePassword.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\HidePassword.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\HidePassword.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\HidePassword.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\HidePassword.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACUAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T14:43:18.393Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Settings.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\Settings.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\Settings.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\Settings.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\Settings.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T16:20:28.003Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PauseMenu.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\PauseMenu.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\PauseMenu.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\PauseMenu.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Restaran\\PauseMenu.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T11:00:46.285Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "NextScene.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\NextScene.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\NextScene.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\NextScene.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Restaran\\NextScene.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T16:08:40.76Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TimerManager.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\TimerManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\TimerManager.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\TimerManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Restaran\\TimerManager.cs",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAYwJIAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T16:42:21.622Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "GameState.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\GameState.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\GameState.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\GameState.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\GameState.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T16:02:37.709Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MainMenu.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\MainMenu.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\MainMenu.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\MainMenu.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\MainMenu.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T10:39:45.268Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UserDataSaver.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\UserDataSaver.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UserDataSaver.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\UserDataSaver.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UserDataSaver.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAmwG8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T17:20:42.647Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "PlayerStats.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\PlayerScripts\\PlayerStats.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerScripts\\PlayerStats.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\PlayerScripts\\PlayerStats.cs",
-              "RelativeToolTip": "Assets\\Scripts\\PlayerScripts\\PlayerStats.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAA+wBwAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T10:18:48.083Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "GlobalData.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\GlobalData.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\GlobalData.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\GlobalData.cs",
-              "RelativeToolTip": "Assets\\Scripts\\GlobalData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T07:20:12.352Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "MusicManager.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\MusicManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\MusicManager.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\MusicManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\MusicManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T16:28:14.809Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "NPCInteraction.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\NPCInteraction.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\NPCInteraction.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\NPCInteraction.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Restaran\\NPCInteraction.cs",
-              "ViewState": "AgIAAKUAAAAAAAAAAAD4v9AAAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-30T11:10:18.186Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "IsEnter.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\IsEnter.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\IsEnter.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\IsEnter.cs",
-              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\IsEnter.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T12:05:39.905Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "AnimatorManager.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\AnimatorManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\AnimatorManager.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\AnimatorManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Restaran\\AnimatorManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T13:15:18.729Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
               "Title": "DialogueManager.cs",
               "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DemonScript\\DialogueManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\DemonScript\\DialogueManager.cs",
               "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DemonScript\\DialogueManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Restaran\\DemonScript\\DialogueManager.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T13:16:58.319Z"
+              "WhenOpened": "2024-12-15T11:00:26.827Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "DialogueUI.cs",
-              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DialogueUI.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\DialogueUI.cs",
-              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DialogueUI.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Restaran\\DialogueUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAmAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "DialogueDemon.cs",
+              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DemonScript\\DialogueDemon.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\DemonScript\\DialogueDemon.cs",
+              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DemonScript\\DialogueDemon.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Restaran\\DemonScript\\DialogueDemon.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T13:19:05.815Z"
+              "WhenOpened": "2024-12-15T11:00:23.522Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DialogueAnimator.cs",
+              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DemonScript\\DialogueAnimator.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Restaran\\DemonScript\\DialogueAnimator.cs",
+              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\Restaran\\DemonScript\\DialogueAnimator.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Restaran\\DemonScript\\DialogueAnimator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T11:00:08.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GameState.cs",
+              "DocumentMoniker": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\GameState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu\\GameState.cs",
+              "ToolTip": "D:\\Programming\\SushiBarGit\\SushiBar\\SushiBar\\SushiBar\\Assets\\Scripts\\MainMenu\\GameState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MainMenu\\GameState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:49:46.654Z",
+              "EditorCaption": ""
             }
           ]
         }

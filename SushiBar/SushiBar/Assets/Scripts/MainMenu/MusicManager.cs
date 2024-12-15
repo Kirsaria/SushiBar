@@ -16,7 +16,7 @@ public class MusicManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); // Удаляем дубликаты
+            Destroy(gameObject); 
         }
     }
     public void SetMusicVolume(float volume)

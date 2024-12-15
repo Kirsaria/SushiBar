@@ -4541,7 +4541,7 @@ MonoBehaviour:
   audioMusic: {fileID: 920589010}
   toggleSFX: {fileID: 2049169197}
   sliderVolumeSFX: {fileID: 2094525151}
-  audioSFX: {fileID: 1992033821}
+  audioSFX: {fileID: 1399876017}
   volume: 100
   sfxVolume: 100
 --- !u!114 &443316073
@@ -14288,7 +14288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMusic: {fileID: 920589010}
-  audioSFX: {fileID: 0}
+  audioSFX: {fileID: 1399876017}
 --- !u!1 &1088864724
 GameObject:
   m_ObjectHideFlags: 0
@@ -16748,7 +16748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1425821510
 RectTransform:
   m_ObjectHideFlags: 0

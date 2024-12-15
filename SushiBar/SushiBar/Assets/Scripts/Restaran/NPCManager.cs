@@ -17,16 +17,14 @@ public class NPCManager : MonoBehaviour
     private bool[] occupiedChairPoints;
     private OrderManager orderManager;
     public List<Orders> orders = new List<Orders>();
-    public Dictionary<int, GameObject> npcDictionary = new Dictionary<int, GameObject>(); // Словарь для хранения NPC по ID
-    private List<int> interactedNPCIDs = new List<int>(); // Список ID взаимодействовавших NPC
+    public Dictionary<int, GameObject> npcDictionary = new Dictionary<int, GameObject>(); 
+    private List<int> interactedNPCIDs = new List<int>(); 
     public int requiredNPCCount = 4;
     public void SaveInteractedNPCIDs()
     {
         string ids = string.Join(",", interactedNPCIDs);
         PlayerPrefs.SetString("InteractedNPCIDs", ids);
         PlayerPrefs.Save();
-
-        // Сохранение заказов
         if (orderManager != null)
         {
             orderManager.SaveOrders();
@@ -40,11 +38,11 @@ public class NPCManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Instance = this; // Устанавливаем экземпляр при первом создании
+            Instance = this; 
         }
         else
         {
-            Destroy(gameObject); // Уничтожаем дубликаты
+            Destroy(gameObject); 
         }
     }
     public void AddInteractedNPC(int npcID)
@@ -98,13 +96,13 @@ public class NPCManager : MonoBehaviour
         }
 
         int spawnIndex = Random.Range(0, spawnPoints.Length);
-        int npcId = interactedNPCIDs[0]; // Берем первый ID из списка
-        interactedNPCIDs.RemoveAt(0); // Удаляем его из списка после использования
+        int npcId = interactedNPCIDs[0]; 
+        interactedNPCIDs.RemoveAt(0); 
 
         GameObject npc = Instantiate(npcPrefabs[npcId % npcPrefabs.Length], spawnPoints[spawnIndex].position, Quaternion.identity);
         npc.GetComponent<NPCInteraction>().animator = GameObject.FindGameObjectWithTag("HintTag").GetComponent<Animator>();
-        npc.GetComponent<NPCInteraction>().npcID = npcId; // Присваиваем NPCID из базы данных
-        npcDictionary.Add(npcId, npc); // Добавляем NPC в словарь
+        npc.GetComponent<NPCInteraction>().npcID = npcId; 
+        npcDictionary.Add(npcId, npc); 
         StartCoroutine(AssignOrderToNPCWithDelay(npc, 2f));
         spawnedNPCs.Add(npc);
 
@@ -123,21 +121,20 @@ public class NPCManager : MonoBehaviour
 
     private IEnumerator AssignOrderToNPCWithDelay(GameObject npc, float delay)
     {
-        // Задержка перед выдачей заказа
         yield return new WaitForSeconds(delay);
 
         int npcId = npc.GetComponent<NPCInteraction>().npcID;
-        Orders order = orderManager.GetOrderForNPC(npcId); // Получаем заказ для конкретного NPC
+        Orders order = orderManager.GetOrderForNPC(npcId); 
 
         if (order == null)
         {
             Debug.LogError($"Заказ для NPC с ID {npcId} не найден!");
-            yield break; // Прерываем выполнение, если нет заказа
+            yield break;
         }
 
-        npc.GetComponent<NPCInteraction>().order = order; // Присваиваем заказ NPC
+        npc.GetComponent<NPCInteraction>().order = order;
         npc.GetComponent<NPCInteraction>().dialogue = orderManager.CreateOrderDialogue(order);
-        orders.Add(order); // Добавляем заказ в OrderData
+        orders.Add(order);
 
     }
 
@@ -159,7 +156,7 @@ public class NPCManager : MonoBehaviour
         }
 
         npcAnimator.SetFloat("Speed", 0);
-        occupiedTargetPoints[targetIndex] = true; // Отмечаем точку как занятую
+        occupiedTargetPoints[targetIndex] = true;
     }
 
     private bool AllPointsOccupied()
@@ -217,14 +214,12 @@ public class NPCManager : MonoBehaviour
         float sitDirection = chairPosition.x < npc.transform.position.x ? 0 : 1;
         npcAnimator.SetFloat("SitDirection", sitDirection);
         npcAnimator.SetTrigger("Sit");
-
-        // Выключаем коллайдер NPC
         npcCollider.enabled = false;
         occupiedChairPoints[chairIndex] = true;
     }
     public Vector3 GetSpawnPosition(int npcID)
     {
-        return spawnPoints[npcID % spawnPoints.Length].position; // Пример, если у вас есть массив spawnPoints
+        return spawnPoints[npcID % spawnPoints.Length].position; 
     }
     public void MoveAndDestroyNPC(GameObject npc)
     {
@@ -238,13 +233,11 @@ public class NPCManager : MonoBehaviour
         float speed = 1.0f;
 
         npcAnimator.SetTrigger("Stand");
-        npcAnimator.SetFloat("Speed", 1.0f); // Установите скорость для анимации ходьбы
+        npcAnimator.SetFloat("Speed", 1.0f); 
 
         while (Vector3.Distance(npc.transform.position, targetPosition) > 0.1f)
         {
             Vector3 direction = (targetPosition - npc.transform.position).normalized;
-
-            // Установка параметров анимации в зависимости от направления движения
             npcAnimator.SetFloat("Speed", speed);
             npcAnimator.SetFloat("Horizontal", direction.x);
             npcAnimator.SetFloat("Vertical", direction.y);
@@ -253,7 +246,6 @@ public class NPCManager : MonoBehaviour
             yield return null;
         }
 
-        // Остановка анимации после достижения цели
         npcAnimator.SetFloat("Speed", 0);
         Destroy(npc);
         spawnedNPCs.Remove(npc);
@@ -262,10 +254,10 @@ public class NPCManager : MonoBehaviour
     {
         foreach (var npc in spawnedNPCs)
         {
-            if (npc != null) // Проверяем, существует ли NPC
+            if (npc != null) 
             {
                 Vector3 spawnPosition = GetSpawnPosition(npc.GetComponent<NPCInteraction>().npcID);
-                StartCoroutine(MoveToSpawnPosition(npc, spawnPosition)); // Перемещаем NPC к точке спавна
+                StartCoroutine(MoveToSpawnPosition(npc, spawnPosition)); 
             }
         }
     }
@@ -273,18 +265,15 @@ public class NPCManager : MonoBehaviour
     {
         if (spawnedNPCs.Count == 0)
         {
-            // Проверяем заказы
             string conn = "URI=file:Orders.db";
             using (var connection = new SqliteConnection(conn))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT COUNT(*) FROM Orders WHERE IsCookingCompleted = 1"; // 1 - завершенные заказы
+                    command.CommandText = "SELECT COUNT(*) FROM Orders WHERE IsCookingCompleted = 1";
                     long completedCount = (long)command.ExecuteScalar();
-
-                    // Проверяем, завершены ли 4 заказа
-                    return completedCount >= requiredNPCCount; // Возвращаем true, если завершенных заказов 4 или больше
+                    return completedCount >= requiredNPCCount; 
                 }
             }
         }

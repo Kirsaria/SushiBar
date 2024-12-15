@@ -188,10 +188,17 @@ MonoBehaviour:
   animator: {fileID: 0}
   animatorDialog: {fileID: 0}
   order:
+    OrderID: 0
     ingredients: []
     HasTaken: 0
+    IsCookingCompleted: 0
+    npcID: 0
   IsSitting: 0
-  orderData: {fileID: 11400000, guid: a57507226fae4a744be5297d762b33e5, type: 2}
+  isWaitingForOrder: 1
+  isOrderComplete: 0
+  hasCompletedDialogue: 0
+  rewardPoint: 0
+  playerControler: {fileID: 0}
 --- !u!70 &-6644367446308592600
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -224,6 +231,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0050132275, y: -0.18637335}
-  m_Size: {x: 1.2987905, y: 1.8727467}
+  m_Offset: {x: 0.13688385, y: -0.14957213}
+  m_Size: {x: 1.329458, y: 1.7991443}
   m_Direction: 0

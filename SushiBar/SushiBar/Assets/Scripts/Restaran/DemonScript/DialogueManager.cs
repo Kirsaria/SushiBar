@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
             if (isTyping)
             {
                 StopAllCoroutines();
-                dialogueText.text = sentences.Peek(); // Завершить текущее предложение
+                dialogueText.text = sentences.Peek(); 
                 isTyping = false;
             }
             else

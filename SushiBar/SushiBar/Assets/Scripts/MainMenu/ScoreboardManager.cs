@@ -11,7 +11,6 @@ public class ScoreboardManager : MonoBehaviour
     public Transform scoreParent;
     private void Start()
     {
-        //LoadScores();
         ShowScores(); 
     }
 

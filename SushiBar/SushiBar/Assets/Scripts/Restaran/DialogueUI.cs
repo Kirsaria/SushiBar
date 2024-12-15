@@ -8,11 +8,11 @@ public class DialogueUI : MonoBehaviour
     public TMP_Text dialogueText;
     public GameObject dialoguePanel;
     private Coroutine typingCoroutine;
-    private bool isDialogueActive = false; // Переменная для отслеживания состояния диалога
+    private bool isDialogueActive = false; 
 
     public void StartDialogue(Dialogue dialogue)
     {
-        isDialogueActive = true; // Устанавливаем состояние диалога в активное
+        isDialogueActive = true; 
         dialoguePanel.SetActive(true);
         if (typingCoroutine != null)
         {
@@ -27,7 +27,7 @@ public class DialogueUI : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(0.05f); // Задержка между буквами
+            yield return new WaitForSeconds(0.05f); 
         }
     }
 
@@ -38,10 +38,9 @@ public class DialogueUI : MonoBehaviour
             StopCoroutine(typingCoroutine);
         }
         dialoguePanel.SetActive(false);
-        isDialogueActive = false; // Устанавливаем состояние диалога в неактивное
+        isDialogueActive = false; 
     }
 
-    // Метод для проверки состояния диалога
     public bool IsDialogueActive()
     {
         return isDialogueActive;

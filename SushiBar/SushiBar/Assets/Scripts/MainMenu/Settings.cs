@@ -28,7 +28,7 @@ public class Settings : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); // Удаляем дубликаты
+            Destroy(gameObject); 
         }
     }
 
@@ -46,6 +46,7 @@ public class Settings : MonoBehaviour
         resolutionDropDown.ClearOptions();
         resolutionDropDown.AddOptions(strRes.ToList());
         resolutionDropDown.value = resolutions.Length - 1;
+        LoadSettings(resolutionDropDown.value);
         Screen.SetResolution(resolutions[resolutions.Length - 1].width, resolutions[resolutions.Length - 1].height, Screen.fullScreen);
         UpdateVolumeSettings();
         UpdateSFXSettings();
@@ -122,27 +123,27 @@ public class Settings : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    //public void LoadSettings(int currentResolutionIndex)
-    //{
-    //    if (PlayerPrefs.HasKey("ResolutionPreference"))
-    //    {
-    //        resolutionDropDown.value = PlayerPrefs.GetInt("ResolutionPreference");
-    //        SetResolution(resolutionDropDown.value); 
-    //    }
-    //    else
-    //    {
-    //        resolutionDropDown.value = currentResolutionIndex;
-    //    }
+    public void LoadSettings(int currentResolutionIndex)
+    {
+        if (PlayerPrefs.HasKey("ResolutionPreference"))
+        {
+            resolutionDropDown.value = PlayerPrefs.GetInt("ResolutionPreference");
+            SetResolution();
+        }
+        else
+        {
+            resolutionDropDown.value = currentResolutionIndex;
+        }
 
-    //    if (PlayerPrefs.HasKey("FullscreenToggle"))
-    //    {
-    //        fullscreenToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenToggle"));
-    //        Screen.fullScreen = fullscreenToggle.isOn;
-    //    }
+        if (PlayerPrefs.HasKey("FullscreenToggle"))
+        {
+            fullscreenToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenToggle"));
+            Screen.fullScreen = fullscreenToggle.isOn;
+        }
 
-    //    volume = PlayerPrefs.GetFloat("volume", volume);
-    //    sliderVolumeMusic.value = volume;
-    //    sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
-    //    sliderVolumeSFX.value = sfxVolume;
-    //}
+        volume = PlayerPrefs.GetFloat("volume", volume);
+        sliderVolumeMusic.value = volume;
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        sliderVolumeSFX.value = sfxVolume;
+    }
 }

@@ -15,12 +15,12 @@ public class NPCInteraction : MonoBehaviour
     public Orders order;
     private bool isPlayerNearby = false;
     private bool isDialogueActive = false;
-    private int chairIndex; // Индекс стула
+    private int chairIndex; 
     public bool IsSitting = false;
     private NPCManager npcManager;
     private List<int> interactedNPCs;
-    public bool isWaitingForOrder = true; // NPC ожидает выполнения заказа
-    public bool isOrderComplete = false; // Заказ выполнен
+    public bool isWaitingForOrder = true; 
+    public bool isOrderComplete = false;
     public bool hasCompletedDialogue = false;
     public int rewardPoint;
     private Text scoreText;
@@ -30,19 +30,19 @@ public class NPCInteraction : MonoBehaviour
     private void Awake()
     {
         interactedNPCs = new List<int>();
-        DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
+        DontDestroyOnLoad(gameObject); 
         animator = GetComponent<Animator>();
         AnimatorManager.Instance.SetNPCAnimator(animator);
         AnimatorManager.Instance.SetDialogAnimator(animatorDialog);
     }
     void LoadData()
     {
-        userDataSaver = FindObjectOfType<UserDataSaver>(); // Инициализируем userDataSaver
+        userDataSaver = FindObjectOfType<UserDataSaver>(); 
 
         if (userDataSaver != null)
         {
             PlayerStats.Instance.SetTotalTears(userDataSaver.totalTears);
-            UpdateScoreText(); // Обновляем текст очков после загрузки
+            UpdateScoreText(); 
         }
         else
         {
@@ -56,7 +56,7 @@ public class NPCInteraction : MonoBehaviour
         GameObject scoreTextObject = GameObject.FindGameObjectWithTag("ScoreText");
         if (scoreTextObject != null)
         {
-            scoreText = scoreTextObject.GetComponent<Text>(); // Используйте TMP_Text, если используете TextMeshPro
+            scoreText = scoreTextObject.GetComponent<Text>(); 
         }
         else
         {
@@ -64,11 +64,11 @@ public class NPCInteraction : MonoBehaviour
         }
         if (animator == null)
         {
-            animator = AnimatorManager.Instance.npcAnimator; // Привязываем аниматор, если он не был установлен
+            animator = AnimatorManager.Instance.npcAnimator;
         }
         if (animatorDialog == null)
         {
-            animatorDialog = AnimatorManager.Instance.dialogAnimator; // Привязываем аниматор диалога, если он не был установлен
+            animatorDialog = AnimatorManager.Instance.dialogAnimator; 
         }
         LoadData();
     }
@@ -80,8 +80,6 @@ public class NPCInteraction : MonoBehaviour
         if (!interactedNPCs.Contains(npcId))
         {
             interactedNPCs.Add(npcId);
-
-            // Обновляем статус заказа в базе данных
             string conn = "URI=file:Orders.db";
             using (var connection = new SqliteConnection(conn))
             {
@@ -94,12 +92,8 @@ public class NPCInteraction : MonoBehaviour
                 }
                 connection.Close();
             }
-
-            // Обновляем данные в OrderData
             Orders newOrder = new Orders { npcID = npcId, HasTaken = true, ingredients = new List<Ingredient>() };
             NPCManager.Instance.orders.Add(newOrder);
-
-            // Добавляем NPC в список взаимодействий в NPCManager
             if (npcManager != null)
             {
                 npcManager.AddInteractedNPC(npcId);
@@ -109,25 +103,22 @@ public class NPCInteraction : MonoBehaviour
                 Debug.LogError("NPCManager не найден!");
             }
         }
-        else if (isOrderComplete && !isWaitingForOrder) // Проверяем, завершен ли заказ
+        else if (isOrderComplete && !isWaitingForOrder) 
         {
-            // Обновляем диалог NPC
             dialogue = new Dialogue
             {
                 sentences = new string[] { "Спасибо за выполненный заказ!" }
             };
 
-            // Начисляем очки игроку
             PlayerStats.Instance.AddPoints(2);
             UpdateScoreText();
-            hasCompletedDialogue = true; // Помечаем диалог как завершенный
+            hasCompletedDialogue = true; 
             playerControler.SetHasDish(false);   
             dialogueUI.StartDialogue(dialogue);
             StartCoroutine(WaitForDialogueEnd(dialogueUI));
         }
-        else if (isWaitingForOrder) // Если NPC ждет заказ
+        else if (isWaitingForOrder) 
         {
-            // Обновляем диалог NPC на ожидание
             dialogue = new Dialogue
             {
                 sentences = new string[] { "Я жду свой заказ." }
@@ -195,14 +186,14 @@ public class NPCInteraction : MonoBehaviour
     }
     private IEnumerator WaitForDialogueEnd(DialogueUI dialogueUI)
     {
-        yield return new WaitUntil(() => !dialogueUI.IsDialogueActive()); // Ждем, пока диалог не завершится
-        npcManager.MoveAndDestroyNPC(gameObject); // Перемещаем и уничтожаем NPC
+        yield return new WaitUntil(() => !dialogueUI.IsDialogueActive()); 
+        npcManager.MoveAndDestroyNPC(gameObject); 
     }
     private void UpdateScoreText()
     {
         if (scoreText != null)
         {
-            scoreText.text = "" + PlayerStats.Instance.GetPoints(); // Обновляем текст очков
+            scoreText.text = "" + PlayerStats.Instance.GetPoints();
         }
         else
         {

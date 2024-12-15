@@ -9,11 +9,9 @@ public class GameManager : MonoBehaviour
 {
     private Ingridients ingridientsToPlace;
     public CustomCursor cursor;
-    public Transform canvasTransform; // Ссылка на Canvas
+    public Transform canvasTransform; 
     public OrderSceneManager orderSceneManager;
-    public List<GameObject> placedIngredients; // Список размещённых ингредиентов
-
-    // Ссылка на объект Plate
+    public List<GameObject> placedIngredients; 
     public Transform plateTransform;
 
     void Start()
@@ -25,11 +23,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && ingridientsToPlace != null)
         {
-            // Получаем позицию мыши относительно Canvas
             Vector2 anchoredPosition;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasTransform as RectTransform, Input.mousePosition, Camera.main, out anchoredPosition);
-
-            // Проверяем, есть ли уже такой ингредиент на доске
             bool ingredientExists = false;
             foreach (GameObject placedIngredient in placedIngredients)
             {
@@ -42,18 +37,15 @@ public class GameManager : MonoBehaviour
 
             if (!ingredientExists)
             {
-                // Создаём новый ингредиент внутри Canvas и сразу устанавливаем его позицию
                 GameObject newIngridient = Instantiate(ingridientsToPlace.prefab, canvasTransform);
                 RectTransform rectTransform = newIngridient.GetComponent<RectTransform>();
                 rectTransform.SetParent(canvasTransform, false);
                 rectTransform.anchoredPosition = anchoredPosition;
-
-                // Добавляем компонент Button и назначаем обработчик события
                 Button button = newIngridient.AddComponent<Button>();
                 button.onClick.AddListener(() => RemoveIngredient(newIngridient));
 
-                placedIngredients.Add(newIngridient); // Добавляем ингредиент в список размещённых
-                Debug.Log("Ингредиент добавлен: " + newIngridient.name); // Выводим в консоль
+                placedIngredients.Add(newIngridient);
+                Debug.Log("Ингредиент добавлен: " + newIngridient.name); 
             }
             else
             {
@@ -63,13 +55,11 @@ public class GameManager : MonoBehaviour
             ingridientsToPlace = null;
             cursor.gameObject.SetActive(false);
             Cursor.visible = true;
-            CheckOrder(); // Проверяем заказ
+            CheckOrder(); 
         }
 
-        // Проверка на нажатие правой кнопки мыши
         if (Input.GetMouseButtonDown(1) && ingridientsToPlace != null)
         {
-            // Отмена выбора ингредиента
             ingridientsToPlace = null;
             cursor.gameObject.SetActive(false);
             Cursor.visible = true;
@@ -93,17 +83,17 @@ public class GameManager : MonoBehaviour
     {
         if (orderSceneManager.CheckOrder(placedIngredients))
         {
-            MoveIngredientsToPlate(); // Перемещаем ингредиенты на тарелку
-            placedIngredients.Clear(); // Очищаем список размещённых ингредиентов
+            MoveIngredientsToPlate();
+            placedIngredients.Clear();
         }
     }
     private void MoveIngredientsToPlate()
     {
         foreach (GameObject ingredient in placedIngredients)
         {
-            ingredient.transform.SetParent(plateTransform); // Перемещаем ингредиент на тарелку
-            ingredient.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; // Устанавливаем позицию на тарелке
-            Destroy(ingredient, 2f); // Удаляем ингредиент через 2 секунды
+            ingredient.transform.SetParent(plateTransform);
+            ingredient.GetComponent<RectTransform>().anchoredPosition = Vector2.zero; 
+            Destroy(ingredient, 2f); 
         }
     }
 }

@@ -11624,7 +11624,7 @@ MonoBehaviour:
   audioMusic: {fileID: 720326924}
   toggleSFX: {fileID: 1922477887}
   sliderVolumeSFX: {fileID: 615416825}
-  audioSFX: {fileID: 75929034}
+  audioSFX: {fileID: 1977395055}
   volume: 100
   sfxVolume: 100
 --- !u!114 &980501300
@@ -12583,7 +12583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMusic: {fileID: 720326924}
-  audioSFX: {fileID: 0}
+  audioSFX: {fileID: 1977395055}
 --- !u!1 &1116137078
 GameObject:
   m_ObjectHideFlags: 0

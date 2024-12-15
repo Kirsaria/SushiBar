@@ -8,15 +8,14 @@ public class GameState : MonoBehaviour
     public static string LastAction { get; set; }
     private void Awake()
     {
-        // Проверяем, существует ли уже экземпляр
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Не уничтожать объект при загрузке новой сцены
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject); // Уничтожаем дубликат
+            Destroy(gameObject); 
         }
     }
 }

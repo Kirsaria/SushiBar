@@ -20,7 +20,6 @@ public class Registration : MonoBehaviour
     public InputField loginUsernameField;
     public InputField loginPasswordField;
     public Text loginErrorText;
-
     private string dbName = "URI=file:Users.db";
 
     private void Start()

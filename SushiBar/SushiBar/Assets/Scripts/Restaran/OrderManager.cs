@@ -29,7 +29,7 @@ public class OrderManager : MonoBehaviour
 {
     private string dbPath;
     public List<Orders> availableOrders;
-    private List<int> interactedNPCs; // Новый список для хранения NPC
+    private List<int> interactedNPCs; 
     public void SaveOrders()
     {
         Debug.Log("Заказы сохранены.");
@@ -39,7 +39,7 @@ public class OrderManager : MonoBehaviour
         dbPath = "URI=file:Orders.db";
         ResetOrderCompletionStatus();
         LoadOrdersFromDatabase();
-        interactedNPCs = new List<int>(); // Инициализация списка
+        interactedNPCs = new List<int>(); 
     }
     private void ResetOrderCompletionStatus()
     {
@@ -48,12 +48,11 @@ public class OrderManager : MonoBehaviour
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                // SQL-запрос для сброса значений IsCompleted и IsCookingCompleted
                 command.CommandText = @"
                     UPDATE Orders
                     SET IsCompleted = 0, IsCookingCompleted = 0
                 ";
-                command.ExecuteNonQuery(); // Выполнение запроса
+                command.ExecuteNonQuery(); 
                 Debug.Log("Статусы заказов сброшены.");
             }
         }
@@ -98,7 +97,6 @@ public class OrderManager : MonoBehaviour
                             };
                         }
 
-                        // Загрузка префаба из папки Resources
                         GameObject prefab = Resources.Load<GameObject>($"Prefabs/Ingridients Prefabs/{prefabName}");
                         if (prefab != null)
                         {

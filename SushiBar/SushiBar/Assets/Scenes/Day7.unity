@@ -238,8 +238,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -335.9043, y: 121}
-  m_SizeDelta: {x: 869.2649, y: 125.8452}
+  m_AnchoredPosition: {x: -319.64, y: 121}
+  m_SizeDelta: {x: 901.8, y: 125.8452}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7430244
 MonoBehaviour:
@@ -274,7 +274,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u041E\u0431\u0441\u043B\u0443\u0436\u0435\u043D\u043E \u043A\u043B\u0438\u0435\u043D\u0442\u043E\u0432:"
+  m_Text: "\u041E\u0431\u0441\u043B\u0443\u0436\u0435\u043D\u043E \u043A\u043B\u0438\u0435\u043D\u0442\u043E\u0432: "
 --- !u!222 &7430245
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -937,8 +937,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 783.28406, y: 473.70587}
-  m_SizeDelta: {x: 121.5396, y: 133.1167}
+  m_AnchoredPosition: {x: 756.85254, y: 473.70587}
+  m_SizeDelta: {x: 174.4026, y: 133.1167}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &37997565
 MonoBehaviour:
@@ -973,7 +973,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: '0
+
+'
 --- !u!222 &37997566
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10227,7 +10229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMusic: {fileID: 1382004896}
-  audioSFX: {fileID: 0}
+  audioSFX: {fileID: 1613270107}
 --- !u!1 &583326759
 GameObject:
   m_ObjectHideFlags: 0
@@ -24401,7 +24403,7 @@ MonoBehaviour:
   audioMusic: {fileID: 1382004896}
   toggleSFX: {fileID: 2118564592}
   sliderVolumeSFX: {fileID: 1983550008}
-  audioSFX: {fileID: 1705139421}
+  audioSFX: {fileID: 1613270107}
   volume: 100
   sfxVolume: 100
 --- !u!114 &1967794393

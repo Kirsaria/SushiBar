@@ -33,11 +33,10 @@ public class MainMenu : MonoBehaviour
 
     private void CheckUserData()
     {
-        string username = GlobalData.Instance.Username; // Получаем имя пользователя
+        string username = GlobalData.Instance.Username; 
         Debug.Log($"Пользователь: {username}");
 
-        // Получаем данные из базы данных
-        using (var connection = new SqliteConnection("URI=file:Users.db")) // Укажите правильный путь к вашей БД
+        using (var connection = new SqliteConnection("URI=file:Users.db")) 
         {
             connection.Open();
             using (var command = connection.CreateCommand())
@@ -51,14 +50,10 @@ public class MainMenu : MonoBehaviour
                     {
                         string day = reader["Day"] as string;
                         int totalTears = reader["TotalTears"] != DBNull.Value ? Convert.ToInt32(reader["TotalTears"]) : 0;
-
-                        // Логируем полученные значения
                         Debug.Log($"Извлечённые значения - Day: '{day}', TotalTears: {totalTears}");
 
-                        // Убираем пробелы
                         day = day?.Trim();
 
-                        // Если значения NULL или пустые, отключаем кнопку
                         if (string.IsNullOrEmpty(day) || totalTears <= 0)
                         {
                             Debug.LogWarning("Пустые значения.");
@@ -66,9 +61,9 @@ public class MainMenu : MonoBehaviour
                         }
                         else
                         {
-                            continueButton.interactable = true; // Включаем кнопку, если данные валидны
-                            sceneToLoad = day; // Сохраняем название сцены
-                            sceneNameText.text = "Продолжить: " + sceneToLoad; // Обновляем текстовое поле с названием сцены
+                            continueButton.interactable = true;
+                            sceneToLoad = day;
+                            sceneNameText.text = "Продолжить: " + sceneToLoad;
                         }
                     }
                     else
@@ -83,10 +78,10 @@ public class MainMenu : MonoBehaviour
     }
     public void ResetUserData()
     {
-        string username = GlobalData.Instance.Username; // Получаем имя пользователя
+        string username = GlobalData.Instance.Username; 
         Debug.Log($"Сбрасываем данные для пользователя: {username}");
 
-        using (var connection = new SqliteConnection("URI=file:Users.db")) // Укажите правильный путь к вашей БД
+        using (var connection = new SqliteConnection("URI=file:Users.db")) 
         {
             connection.Open();
             using (var command = connection.CreateCommand())
@@ -98,7 +93,6 @@ public class MainMenu : MonoBehaviour
                 if (rowsAffected > 0)
                 {
                     Debug.Log("Данные пользователя успешно сброшены.");
-                    // Можно дополнительно вызвать CheckUserData, чтобы обновить интерфейс
                     CheckUserData();
                 }
                 else

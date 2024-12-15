@@ -14,7 +14,7 @@ public class OrderSceneManager : MonoBehaviour
     private string dbPath;
     private List<Orders> orders;
     private List<int> interactedNPCIDs;
-    private Dictionary<int, GameObject> orderObjects; // Словарь для хранения объектов заказов
+    private Dictionary<int, GameObject> orderObjects; 
     public GameObject cookingCanvas;
     public GameObject cameraMain;
     public GameObject cameraCooking;
@@ -84,8 +84,6 @@ public class OrderSceneManager : MonoBehaviour
                                 ingredients = new List<Ingredient>()
                             };
                         }
-
-                        // Загрузка префаба из папки Resources
                         GameObject prefab = Resources.Load<GameObject>($"Prefabs/Ingridients Prefabs/{prefabName}");
                         if (prefab != null)
                         {
@@ -177,7 +175,7 @@ public class OrderSceneManager : MonoBehaviour
     {
         foreach (var order in orders)
         {
-            if (order.HasTaken && interactedNPCIDs.Contains(order.npcID))
+            if (order.HasTaken && interactedNPCIDs.Contains(order.npcID) && !order.IsCookingCompleted)
             {
                 bool orderComplete = true;
 
@@ -207,7 +205,7 @@ public class OrderSceneManager : MonoBehaviour
                     playerControler.SetHasDish(true);
                     RemoveOrderFromScene(order.npcID);
                     order.HasTaken = true;
-                    SaveOrderState(order.OrderID); // Сохраняем состояние заказа
+                    SaveOrderState(order.OrderID); 
                     UpdateNPCState(order.npcID);
                     StartCoroutine(SwitchToMainSceneWithDelay());
                     return true;
@@ -227,7 +225,7 @@ public class OrderSceneManager : MonoBehaviour
         if (orderObjects.TryGetValue(npcID, out GameObject orderObject))
         {
             Destroy(orderObject);
-            orderObjects.Remove(npcID); // Удаляем ссылку из словаря
+            orderObjects.Remove(npcID); 
         }
     }
 
@@ -247,11 +245,11 @@ public class OrderSceneManager : MonoBehaviour
 
     public void UpdateNPCState(int npcID)
     {
-        NPCInteraction npc = FindNPCById(npcID); // Метод для поиска NPC по ID
+        NPCInteraction npc = FindNPCById(npcID); 
         if (npc != null)
         {
-            npc.isWaitingForOrder = false; // NPC больше не ждет заказ
-            npc.isOrderComplete = true;   // Заказ выполнен
+            npc.isWaitingForOrder = false; 
+            npc.isOrderComplete = true;   
             Debug.Log($"Состояние NPC {npcID} обновлено: заказ завершен.");
         }
     }
@@ -270,9 +268,9 @@ public class OrderSceneManager : MonoBehaviour
     }
     private IEnumerator SwitchToMainSceneWithDelay()
     {
-        yield return new WaitForSeconds(2f); // Ждем 2 секунды
+        yield return new WaitForSeconds(2f); 
         cameraCooking.SetActive(false);
         cameraMain.SetActive(true);
-        cookingCanvas.SetActive(false); // Переход на сцену ресторана
+        cookingCanvas.SetActive(false); 
     }
 }

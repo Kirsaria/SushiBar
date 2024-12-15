@@ -50,7 +50,6 @@ public class HintTrigger : MonoBehaviour
     {
         if (playerInTrigger && Input.GetKeyDown(KeyCode.E) && playerControler.hasDish == false)
         {
-            // Сохранение списка взаимодействовавших NPC
             if (npcManager != null)
             {
                 npcManager.SaveInteractedNPCIDs();
@@ -61,12 +60,11 @@ public class HintTrigger : MonoBehaviour
             }
             cameraMain.SetActive(false);
             cameraCooking.SetActive(true);
-            // Переход на другую сцену
             cookingCanvas.SetActive(true);
             var orderSceneManager = FindObjectOfType<OrderSceneManager>();
             if (orderSceneManager != null)
             {
-                orderSceneManager.DisplayOrders(); // Убедитесь, что метод доступен
+                orderSceneManager.DisplayOrders(); 
             }
             else
             {
