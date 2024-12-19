@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using Mono.Data.Sqlite;
+using UnityEngine.UIElements;
 
 public class TimerManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class TimerManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     private NPCManager npcManager;
     public Animator animatorButton;
-
+    public Animator animatorDay;
     private bool isDay = false; 
     private bool hasDisplayedNPCsServed = false;
 
@@ -29,8 +30,15 @@ public class TimerManager : MonoBehaviour
         SetDayLighting(0f);  
         StartCoroutine(ITimer());
         LoadAudioSettings();
+        StartCoroutine(ShowTextField());
     }
-
+    private IEnumerator ShowTextField()
+    {
+        animatorDay.SetTrigger("IsOn");
+        yield return new WaitForSeconds(3f);
+        animatorDay.SetTrigger("IsOn");
+        yield return new WaitForSeconds(1f); // Ожидание завершения анимации
+    }
     IEnumerator ITimer()
     {
         while (true)

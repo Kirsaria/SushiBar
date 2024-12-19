@@ -30,7 +30,6 @@ public class NPCInteraction : MonoBehaviour
     private void Awake()
     {
         interactedNPCs = new List<int>();
-        DontDestroyOnLoad(gameObject); 
         animator = GetComponent<Animator>();
         AnimatorManager.Instance.SetNPCAnimator(animator);
         AnimatorManager.Instance.SetDialogAnimator(animatorDialog);

@@ -38,11 +38,11 @@ public class NPCManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Instance = this; 
+            Instance = this;
         }
         else
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
     public void AddInteractedNPC(int npcID)
@@ -56,12 +56,23 @@ public class NPCManager : MonoBehaviour
             Debug.Log($"NPC с ID {npcID} уже существует в списке interactedNPCIDs.");
         }
     }
-
+    public void RemoveAllNPCsStart()
+    {
+        foreach (var npc in spawnedNPCs)
+        {
+            if (npc != null)
+            {
+                Destroy(npc); // ”ничтожаем NPC
+            }
+        }
+        spawnedNPCs.Clear(); // ќчищаем список
+    }
     private void Start()
     {
         occupiedTargetPoints = new bool[targetPoints.Length];
         occupiedChairPoints = new bool[chairPositions.Length];
         orderManager = FindObjectOfType<OrderManager>();
+        RemoveAllNPCsStart();
         LoadInteractedNPCs();
         SpawnNPC();
     }
